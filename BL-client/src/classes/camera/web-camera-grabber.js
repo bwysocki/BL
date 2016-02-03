@@ -19,7 +19,6 @@ var BLClient;
                         }
                         ;
                         video.play();
-                        console.log('Video is playing.');
                     };
                 })(this._video, this._URL), function () {
                     console.log('Problem with streaming webcamera video.');

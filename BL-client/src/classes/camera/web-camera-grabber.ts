@@ -25,7 +25,6 @@ module BLClient {
                             video.src = (url && url.createObjectURL(stream)) || stream;
                         };
                         video.play();
-                        console.log('Video is playing.');
                     };
                 })(this._video, this._URL), function() {
                     console.log('Problem with streaming webcamera video.');

@@ -1,0 +1,16 @@
+{
+  "name": "bl-server",
+  "version": "1.0.0",
+  "description": "Server for augmented reality.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bartosz Wysocki",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "express": "^4.13.4",
+    "socket.io": "^1.4.5"
+  }
+}

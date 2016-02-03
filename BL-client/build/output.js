@@ -19,7 +19,6 @@ var BLClient;
                         }
                         ;
                         video.play();
-                        console.log('Video is playing.');
                     };
                 })(this._video, this._URL), function () {
                     console.log('Problem with streaming webcamera video.');
@@ -33,10 +32,32 @@ var BLClient;
     })();
     BLClient.WebCameraGrabber = WebCameraGrabber;
 })(BLClient || (BLClient = {}));
-///<reference path='classes/web-camera-grabber.ts'/>
+/// <reference path="../../interfaces/websocket.ts" />
+var BLClient;
+(function (BLClient) {
+    var WebSocketConnector = (function () {
+        function WebSocketConnector(url) {
+            this._COMMAND = 'UPDATE';
+            this._socket = io(url);
+        }
+        WebSocketConnector.prototype.listen = function () {
+            this._socket.on(this._COMMAND, function (data) {
+                console.log(data);
+            });
+        };
+        return WebSocketConnector;
+    })();
+    BLClient.WebSocketConnector = WebSocketConnector;
+})(BLClient || (BLClient = {}));
+///<reference path='classes/camera/web-camera-grabber.ts'/>
+///<reference path='classes/websocket/web-socket-connector.ts'/>
 window.addEventListener('DOMContentLoaded', function () {
     'use strict';
+    //set up video
     var video = document.querySelector('video');
     var videoGrabber = new BLClient.WebCameraGrabber(video);
     videoGrabber.play();
+    //start listening
+    var websocket = new BLClient.WebSocketConnector("http://localhost:3001/updateinfo");
+    websocket.listen();
 });
