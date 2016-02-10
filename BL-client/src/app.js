@@ -9,5 +9,9 @@ window.addEventListener('DOMContentLoaded', function () {
     //start listening
     var websocket = new BLClient.WebSocketConnector("http://localhost:3001/updateinfo");
     websocket.listen();
+    //start presenting
+    var webglrenderer = new BLClient.WebglRenderer("augmented-object");
+    webglrenderer.add3dObject('/img/logo.png');
+    webglrenderer.render();
 });
 //# sourceMappingURL=app.js.map

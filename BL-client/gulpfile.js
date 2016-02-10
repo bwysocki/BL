@@ -1,6 +1,10 @@
 var gulp = require('gulp');
-var ts = require('gulp-typescript');
+var runSequence = require('run-sequence');
 
 require('require-dir')('./gulp-tasks');
 
-gulp.task('default', ['compile-ts']);
+gulp.task('build', function (callback) {
+    runSequence('compile-ts', 'bower', 'unittest', callback);
+});
+
+gulp.task('default', ['build', 'server', 'watch']);

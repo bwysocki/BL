@@ -84,3 +84,6 @@ local.properties
 
 # JS hint
 .jshintrc
+
+# Bower
+*/bower_components/

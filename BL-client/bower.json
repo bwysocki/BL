@@ -11,6 +11,13 @@
     "bower_components"
   ],
   "dependencies": {
-    
+    "lodash": "^4.2.1",
+    "socket.io-client": "^1.4.5",
+    "three.js": "threejs#*"
+  },
+  "overrides": {
+    "socket.io-client": {
+      "main": "socket.io.js"
+    }
   }
 }

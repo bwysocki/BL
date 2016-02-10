@@ -1,13 +1,13 @@
 var BLClient;
 (function (BLClient) {
-    var WebCameraGrabber = (function () {
-        function WebCameraGrabber(video) {
+    class WebCameraGrabber {
+        constructor(video) {
             var _navigator = navigator, _window = window;
             this._video = video;
             this._getUserMedia = _navigator.getUserMedia || _navigator.webkitGetUserMedia || _navigator.mozGetUserMedia || _navigator.msGetUserMedia;
             this._URL = _window.URL || _window.webkitURL || _window.mozURL || _window.msURL;
         }
-        WebCameraGrabber.prototype.play = function () {
+        play() {
             if (this._getUserMedia) {
                 this._getUserMedia.call(navigator, { video: true }, (function (video, url) {
                     return function (stream) {
@@ -27,9 +27,8 @@ var BLClient;
             else {
                 console.log('Native web camera streaming (getUserMedia) not supported in this browser.');
             }
-        };
-        return WebCameraGrabber;
-    })();
+        }
+    }
     BLClient.WebCameraGrabber = WebCameraGrabber;
 })(BLClient || (BLClient = {}));
 //# sourceMappingURL=web-camera-grabber.js.map

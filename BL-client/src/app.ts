@@ -6,10 +6,15 @@ window.addEventListener('DOMContentLoaded', function() {
     
     //set up video
     var video = document.querySelector('video');
-    var videoGrabber = new BLClient.WebCameraGrabber(video);
+    var videoGrabber: BLClient.WebCameraGrabber = new BLClient.WebCameraGrabber(video);
     videoGrabber.play();
     
     //start listening
-    var websocket = new BLClient.WebSocketConnector("http://localhost:3001/updateinfo");
+    var websocket: BLClient.WebSocketConnector = new BLClient.WebSocketConnector("http://localhost:3001/updateinfo");
     websocket.listen();
+    
+    //start presenting
+    var webglrenderer: BLClient.WebglRenderer = new BLClient.WebglRenderer("augmented-object");
+    webglrenderer.add3dObject('/img/logo.png');
+    webglrenderer.render();
 });

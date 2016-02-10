@@ -1,9 +1,16 @@
-var gulp = require('gulp');
-var ts = require('gulp-typescript');
+var gulp = require('gulp'), 
+	Server = require('karma').Server, 
+	wiredep = require('wiredep');
 
-gulp.task('unittest', function() {
-	return gulp.src('src/**/*.ts').pipe(ts({
-		noImplicitAny : true,
-		out : 'output.js'
-	})).pipe(gulp.dest('build'));
+gulp.task('unittest', function(done) {
+
+	var bowerDeps = wiredep(), files = bowerDeps.js.concat([ './build/output.js' ]).concat(
+			[ 'src/**/*-test.js' ]);
+
+	return new Server({
+		configFile : __dirname + '/../karma.conf.js',
+		files : files,
+		singleRun : true
+	}, done).start()
+
 });
