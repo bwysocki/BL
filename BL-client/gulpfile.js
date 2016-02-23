@@ -3,8 +3,7 @@ var runSequence = require('run-sequence');
 
 require('require-dir')('./gulp-tasks');
 
-gulp.task('build', function (callback) {
-    runSequence('compile-ts', 'bower', 'unittest', callback);
+gulp.task('default', function (callback) {
+    runSequence(['compile-ts', 'tslint', 'bower', 'unittest', 'server', 'watch'], callback);
 });
 
-gulp.task('default', ['build', 'server', 'watch']);

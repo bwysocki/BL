@@ -13,7 +13,9 @@
   "dependencies": {
     "lodash": "^4.2.1",
     "socket.io-client": "^1.4.5",
-    "three.js": "threejs#*"
+    "three.js": "threejs#*",
+    "aruco-marker": "^1.0.0",
+    "js-logger": "^1.2.0"
   },
   "overrides": {
     "socket.io-client": {

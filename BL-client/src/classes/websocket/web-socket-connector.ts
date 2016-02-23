@@ -1,19 +1,19 @@
-/// <reference path="../../interfaces/websocket.ts" />
-	
+///<reference path='../../../declarations/blclient.d.ts'/>
+
 module BLClient {
 
     export class WebSocketConnector {
 
-        private _socket: BLClient.Socket;
-        private _COMMAND: string = 'UPDATE';
+        private socket: BLClient.Socket;
+        private COMMAND: string = 'UPDATE';
 
         constructor(url: string) {
-            this._socket = io(url);
+            this.socket = io(url);
         }
 
         listen() {
-            this._socket.on(this._COMMAND, function(data: Message) {
-                console.log(data)
+            this.socket.on(this.COMMAND, function(data: Message) {
+                Logger.info(data);
             });
         }
 

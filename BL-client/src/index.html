@@ -4,15 +4,33 @@
 		<title>Augmented reality.</title>
 		<!-- bower:css -->
 		<!-- endbower -->
+		<style>
+			#screen {
+				display:none;
+			}
+			#video {
+				border: 1px solid black;
+			}
+			#video, #screen, #augmented-object{
+				position: absolute;
+				top: 5em;
+				left: 30em;
+			}
+		</style>
 	</head>
-	<body style="background:#D0EDF7;">
-		<video></video>
-		<canvas id="augmented-object"></canvas>
+	<body>
+		<video id="video" width=640 height=480 src="/build/video/sample.ogg" type="video/ogg" autoplay></video>
+		<canvas id="screen" width=640 height=480></canvas>
+		<canvas id="augmented-object" width=640 height=480></canvas>
+		<!-- <canvas id="debugCanvas" style="margin-left:640px" width=640 height=480></canvas> -->
 		<!-- bower:js -->
 		<script src="../bower_components/lodash/lodash.js"></script>
 		<script src="../bower_components/socket.io-client/socket.io.js"></script>
 		<script src="../bower_components/three.js/build/three.js"></script>
+		<script src="../bower_components/aruco-marker/aruco-marker.js"></script>
+		<script src="../bower_components/js-logger/src/logger.js"></script>
 		<!-- endbower -->
+		<script src=js-vendor/JSARToolKit.min.js></script>
 		<script src=output.js></script>
 	</body>
 </html>

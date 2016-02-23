@@ -2,19 +2,21 @@
 var BLClient;
 (function (BLClient) {
     class WebglRenderer {
-        constructor(canvasId) {
-            this._uniqueName = 'bllogo';
+        constructor(canvasId, videoGrabber) {
+            this.uniqueName = 'bllogo';
+            this.fps = 100;
             var canvas = document.getElementById(canvasId);
-            this._renderer = new THREE.WebGLRenderer({
+            this.videoGrabber = videoGrabber;
+            this.renderer = new THREE.WebGLRenderer({
                 canvas: canvas,
                 antialias: true,
                 alpha: true,
             });
-            this._scene = new THREE.Scene();
-            this._camera = new THREE.PerspectiveCamera(45, canvas.width / canvas.height, 1, 1000);
-            this._camera.position.z = 2;
-            this._object3d = new THREE.Object3D();
-            this._scene.add(this._object3d);
+            this.scene = new THREE.Scene();
+            this.camera = new THREE.PerspectiveCamera(45, canvas.width / canvas.height, 1, 1000);
+            this.camera.position.z = 2;
+            this.object3d = new THREE.Object3D();
+            this.scene.add(this.object3d);
         }
         add3dObject(modelUrl) {
             new THREE.TextureLoader().load(modelUrl, (function (object3d, logoName) {
@@ -26,33 +28,36 @@ var BLClient;
                     logo.name = logoName;
                     object3d.add(logo);
                 };
-            })(this._object3d, this._uniqueName));
+            })(this.object3d, this.uniqueName));
         }
         render() {
-            var renderingFn = (function (object3d, refreshFn) {
-                return function () {
-                    object3d.position.x = object3d.position.x + 0.01;
-                    refreshFn();
+            requestAnimationFrame((function (self, previousTime) {
+                return function animate(now) {
+                    requestAnimationFrame(animate);
+                    var delta = now - previousTime;
+                    if (delta > 1000 / self.fps) {
+                        previousTime = now;
+                        self.renderingFn();
+                    }
                 };
-            })(this._object3d, (function (self) {
-                return function () {
-                    self._refreshScene.call(self);
-                };
-            })(this));
-            var fps = 30;
-            var interval = 1000 / fps;
-            var previousTime = performance.now();
-            requestAnimationFrame(function animate(now) {
-                var delta = now - previousTime;
-                if (delta > interval) {
-                    previousTime = now;
-                    renderingFn();
-                }
-                requestAnimationFrame(animate);
-            });
+            })(this, performance.now()));
         }
-        _refreshScene() {
-            this._renderer.render(this._scene, this._camera);
+        renderingFn() {
+            this.videoGrabber.detectMarker();
+            var deltaPlus = this.object3d.position.x + 1, deltaMinus = this.object3d.position.x - 1, right = true, move = 0.01;
+            if (right) {
+                if (this.object3d.position.x > deltaPlus) {
+                    right = false;
+                }
+                this.object3d.position.x = this.object3d.position.x + move;
+            }
+            else {
+                if (this.object3d.position.x < deltaMinus) {
+                    right = true;
+                }
+                this.object3d.position.x = this.object3d.position.x - move;
+            }
+            this.renderer.render(this.scene, this.camera);
         }
     }
     BLClient.WebglRenderer = WebglRenderer;

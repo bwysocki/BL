@@ -1,14 +1,14 @@
-/// <reference path="../../interfaces/websocket.ts" />
+///<reference path='../../../declarations/websocket.d.ts'/>
 var BLClient;
 (function (BLClient) {
     class WebSocketConnector {
         constructor(url) {
-            this._COMMAND = 'UPDATE';
-            this._socket = io(url);
+            this.COMMAND = 'UPDATE';
+            this.socket = io(url);
         }
         listen() {
-            this._socket.on(this._COMMAND, function (data) {
-                console.log(data);
+            this.socket.on(this.COMMAND, function (data) {
+                Logger.info(data);
             });
         }
     }
