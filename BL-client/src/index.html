@@ -2,35 +2,53 @@
 <html>
 	<head>
 		<title>Augmented reality.</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.0-rc.1/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="../build/css/app.css">
 		<!-- bower:css -->
 		<!-- endbower -->
 		<style>
-			#screen {
-				display:none;
-			}
-			#video {
-				border: 1px solid black;
-			}
 			#video, #screen, #augmented-object{
+				border: 1px solid black;
 				position: absolute;
-				top: 5em;
-				left: 30em;
+				top: 1em;
+				left: 1em;
+			}
+			#screen {
+				top: 1em;
+				left: 45em;
 			}
 		</style>
 	</head>
 	<body>
-		<video id="video" width=640 height=480 src="/build/video/sample.ogg" type="video/ogg" autoplay></video>
+
+		<video id="video" width=640 height=480 type="video/ogg" autoplay></video>
 		<canvas id="screen" width=640 height=480></canvas>
 		<canvas id="augmented-object" width=640 height=480></canvas>
-		<!-- <canvas id="debugCanvas" style="margin-left:640px" width=640 height=480></canvas> -->
+
+		<script src="../node_modules/es6-shim/es6-shim.min.js"></script>
+	    <script src="../node_modules/systemjs/dist/system-polyfills.js"></script>
+	    <script src="../node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>   
+	    <script src="../node_modules/angular2/bundles/angular2-polyfills.js"></script>
+	    <script src="../node_modules/systemjs/dist/system.src.js"></script>
+	    <script src="../node_modules/rxjs/bundles/Rx.js"></script>
+	    <script src="../node_modules/angular2/bundles/angular2.dev.js"></script>
+	    <script src="../node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
 		<!-- bower:js -->
 		<script src="../bower_components/lodash/lodash.js"></script>
 		<script src="../bower_components/socket.io-client/socket.io.js"></script>
 		<script src="../bower_components/three.js/build/three.js"></script>
 		<script src="../bower_components/aruco-marker/aruco-marker.js"></script>
 		<script src="../bower_components/js-logger/src/logger.js"></script>
+		<script src="../bower_components/moment/moment.js"></script>
+		<script src="../bower_components/jquery/dist/jquery.js"></script>
+		<script src="../bower_components/jquery-ui/jquery-ui.js"></script>
 		<!-- endbower -->
 		<script src=js-vendor/JSARToolKit.min.js></script>
-		<script src=output.js></script>
+		<script src=src/app.js></script>
+		
+		
+		<bl>Loading...</bl>
 	</body>
 </html>

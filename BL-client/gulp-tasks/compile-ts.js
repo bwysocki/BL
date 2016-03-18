@@ -1,11 +1,12 @@
-var gulp = require('gulp'),
+const gulp = require('gulp'),
 	livereload = require('gulp-livereload'),
-	ts = require('gulp-typescript');
+	ts = require('gulp-typescript'),
+	config = ts.createProject('tsconfig.json');
 
 
 gulp.task('compile-ts', function() {
-	return gulp.src('src/**/*.ts').pipe(ts({
-		noImplicitAny : true,
-		out : 'output.js' 
-	})).pipe(gulp.dest('build')).pipe(livereload());
+	return config.src('src/**/*.ts')
+		.pipe(ts(config))
+		.pipe(gulp.dest('build'))
+		.pipe(livereload());
 });

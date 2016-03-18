@@ -1,19 +1,17 @@
-///<reference path='../../../declarations/detector.d.ts'/>
 var BLClient;
 (function (BLClient) {
-    class WebCameraGrabber {
-        constructor(video) {
-            this.myWorker = new Worker('test.js');
+    var WebCameraGrabber = (function () {
+        function WebCameraGrabber(video) {
             var nav = navigator, win = window;
             this.video = video;
             this.getUserMedia = nav.getUserMedia || nav.webkitGetUserMedia || nav.mozGetUserMedia || nav.msGetUserMedia;
             this.URL = win.URL || win.webkitURL || win.mozURL || win.msURL;
-            //set up detector
-            var param = new FLARParam(300, 200);
-            this.detector = new FLARMultiIdMarkerDetector(param, 80);
+            this.screen = document.getElementById('screen');
+            var param = new FLARParam(640, 480);
+            this.detector = new FLARMultiIdMarkerDetector(param, 80); //120
             this.detector.setContinueMode(true);
         }
-        play() {
+        WebCameraGrabber.prototype.play = function () {
             if (this.getUserMedia) {
                 this.getUserMedia.call(navigator, { video: true }, (function (video, url) {
                     return function (stream) {
@@ -33,20 +31,19 @@ var BLClient;
             else {
                 Logger.error('Native web camera streaming (getUserMedia) not supported in this browser.');
             }
-        }
-        detectMarker() {
-            var start = performance.now();
-            var canvasElement = document.getElementById('test');
-            // document.createElement('canvas');
-            canvasElement.getContext('2d').drawImage(this.video, 0, 0, 300, 200);
-            canvasElement.changed = true;
-            var raster = new NyARRgbRaster_Canvas2D(canvasElement);
-            var markerCount = this.detector.detectMarkerLite(raster, 170);
-            //console.log(markerCount);
-            var end = performance.now();
-            //console.log(end - start)
-        }
-    }
+        };
+        WebCameraGrabber.prototype.detectMarker = function () {
+            this.screen.getContext('2d').drawImage(this.video, 0, 0, this.video.videoWidth, this.video.videoHeight);
+            this.screen.changed = true;
+            var raster = new NyARRgbRaster_Canvas2D(this.screen);
+            var count = this.detector.detectMarkerLite(raster, 170); //70
+            var matrix;
+            if (count > 0) {
+                matrix = this.detector.getSquare(0);
+            }
+            return matrix;
+        };
+        return WebCameraGrabber;
+    }());
     BLClient.WebCameraGrabber = WebCameraGrabber;
 })(BLClient || (BLClient = {}));
-//# sourceMappingURL=web-camera-grabber.js.map

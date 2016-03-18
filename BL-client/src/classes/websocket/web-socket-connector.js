@@ -1,17 +1,16 @@
-///<reference path='../../../declarations/websocket.d.ts'/>
 var BLClient;
 (function (BLClient) {
-    class WebSocketConnector {
-        constructor(url) {
+    var WebSocketConnector = (function () {
+        function WebSocketConnector(url) {
             this.COMMAND = 'UPDATE';
             this.socket = io(url);
         }
-        listen() {
+        WebSocketConnector.prototype.listen = function () {
             this.socket.on(this.COMMAND, function (data) {
                 Logger.info(data);
             });
-        }
-    }
+        };
+        return WebSocketConnector;
+    }());
     BLClient.WebSocketConnector = WebSocketConnector;
 })(BLClient || (BLClient = {}));
-//# sourceMappingURL=web-socket-connector.js.map

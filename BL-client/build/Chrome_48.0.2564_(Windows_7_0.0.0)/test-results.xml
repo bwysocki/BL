@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<testsuite name="Chrome 48.0.2564 (Windows 7 0.0.0)" package="" timestamp="2016-02-23T10:05:19" id="0" hostname="NKW23348" tests="2" errors="0" failures="0" time="0.021">
+<testsuite name="Chrome 48.0.2564 (Windows 7 0.0.0)" package="" timestamp="2016-03-18T09:30:43" id="0" hostname="NKW23348" tests="2" errors="0" failures="0" time="0.002">
   <properties>
-    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.97 Safari/537.36"/>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36"/>
   </properties>
-  <testcase name="is initialized." time="0.016" classname="Chrome_48_0_2564_(Windows_7_0_0_0).Web socket connector"/>
-  <testcase name="started listening" time="0.005" classname="Chrome_48_0_2564_(Windows_7_0_0_0).Web socket connector"/>
+  <testcase name="is initialized." time="0.002" classname="Chrome_48_0_2564_(Windows_7_0_0_0).Web socket connector"/>
+  <testcase name="started listening" time="0" classname="Chrome_48_0_2564_(Windows_7_0_0_0).Web socket connector"/>
   <system-out>
     <![CDATA[
 ]]>
