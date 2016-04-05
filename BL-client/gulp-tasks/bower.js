@@ -1,4 +1,4 @@
-var gulp = require('gulp'), 
+const gulp = require('gulp'), 
 	wiredep = require('wiredep').stream;
 
 gulp.task('bower', function() {

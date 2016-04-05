@@ -6,15 +6,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('angular2/core');
-var BLComponent = (function () {
-    function BLComponent() {
+var ServerService = (function () {
+    function ServerService() {
+        console.log('test');
     }
-    BLComponent = __decorate([
-        core_1.Component({
-            selector: 'bl',
-            template: '<h1></h1>'
-        })
-    ], BLComponent);
-    return BLComponent;
+    ServerService = __decorate([
+        core_1.Injectable()
+    ], ServerService);
+    return ServerService;
 }());
-exports.BLComponent = BLComponent;
+exports.ServerService = ServerService;

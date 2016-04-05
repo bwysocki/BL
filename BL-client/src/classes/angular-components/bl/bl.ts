@@ -1,8 +1,8 @@
 import {Component} from 'angular2/core';
-import {FpsProgress } from './fps-progress.component';
-import {WebCameraGrabber} from '../camera/web-camera-grabber';
-import {WebSocketConnector} from '../websocket/web-socket-connector';
-import {WebglRenderer} from '../webgl/webgl-renderer';
+import {FpsProgress } from '../fps-progress.component';
+import {WebCameraGrabber} from '../../camera/web-camera-grabber';
+import {WebglRenderer} from '../../webgl/webgl-renderer';
+import {ServerService} from '../../angular-services/server-service';
 
 export enum ModelName {
     CAR,
@@ -10,8 +10,9 @@ export enum ModelName {
 }
 
 export interface VideoConfiguration {
-    modelIndex: ModelName;
+    model: ModelName;
     fps: number;
+    logoColor: string;
 }
 
 @Component({
@@ -25,20 +26,17 @@ export interface VideoConfiguration {
             width: 500px;
         }
     `],
-    template: `
-            <h1>test me {{configuration.modelIndex}}, {{configuration.fps}} </h1> 
-            <input [(ngModel)]="configuration.fps">
-            <fps-progress [(fps)]="configuration.fps"></fps-progress>
-    `
+    templateUrl: '/src/classes/angular-components/bl/bl.html'
 })
 export class BLComponent {
 
     public configuration: VideoConfiguration = {
         fps: 30,
-        modelIndex : ModelName.CAR
+        model : ModelName.LOGO,
+        logoColor: "#7f7f7f"
     };
 
-    constructor() {
+    constructor(private serverService: ServerService) {
 
         Logger.useDefaults();
 
@@ -46,10 +44,6 @@ export class BLComponent {
         const video = <HTMLVideoElement> document.querySelector('video');
         const videoGrabber: WebCameraGrabber = new WebCameraGrabber(video);
         videoGrabber.play();
-
-        // start listening
-        const websocket: WebSocketConnector = new WebSocketConnector('http://localhost:3001/updateinfo');
-        websocket.listen();
 
         // start presenting
         const webglrenderer: WebglRenderer = new WebglRenderer('augmented-object', videoGrabber, this.configuration);

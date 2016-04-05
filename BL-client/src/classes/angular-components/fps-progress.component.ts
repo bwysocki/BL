@@ -17,7 +17,7 @@ export class FpsProgress implements OnInit {
 
     public ngOnInit () {
         jQuery(this.m_elementRef.nativeElement).find('.slider').slider({
-           max: 70,
+           max: 50,
            min: 5,
            range: false,
            slide: (event, ui) => {

@@ -1,4 +1,4 @@
-import {VideoConfiguration} from '../angular-components/bl.component';
+import {VideoConfiguration, ModelName} from '../angular-components/bl/bl';
 import {WebCameraGrabber} from '../camera/web-camera-grabber';
 
 export class WebglRenderer {
@@ -8,14 +8,14 @@ export class WebglRenderer {
     private scene: THREE.Scene;
     private camera: THREE.PerspectiveCamera;
     private objects3d: THREE.Object3D[] = [];
-    private object3d: THREE.Object3D;
     private configuration: VideoConfiguration;
-    private mesh: THREE.Mesh;
+    private currentModel: ModelName;
 
     constructor(canvasId: string, videoGrabber: WebCameraGrabber, configuration: VideoConfiguration) {
 
         let canvas: HTMLCanvasElement = <HTMLCanvasElement> document.getElementById(canvasId);
 
+        this.currentModel = configuration.model;
         this.configuration = configuration;
         this.videoGrabber = videoGrabber;
         this.renderer = new THREE.WebGLRenderer({
@@ -38,11 +38,8 @@ export class WebglRenderer {
         this.addBlsLogo(manager);
 
         manager.onLoad = () => {
-            const i = 0;
             this.scene.add(this.objects3d[0]);
             this.scene.add(this.objects3d[1]);
-            this.object3d = this.objects3d[i];
-            this.mesh = <THREE.Mesh>this.objects3d[i].children[0];
             this.render();
         };
 
@@ -64,26 +61,35 @@ export class WebglRenderer {
     private renderingFn() {
 
         const marker: NyARSquare = this.videoGrabber.detectMarker();
+        const object3d: THREE.Object3D = this.objects3d[this.configuration.model];
+        const mesh: THREE.Mesh = <THREE.Mesh>this.objects3d[this.configuration.model].children[0];
+
+        if (this.currentModel !== this.configuration.model) {
+            this.objects3d[this.currentModel].visible = false;
+            this.currentModel = this.configuration.model;
+        }
+        
+        if (this.currentModel == ModelName.LOGO) {
+            mesh.material.color = new THREE.Color(this.configuration.logoColor);
+        }
 
         if (!_.isUndefined(marker)) {
             let coordinate: Coordinate = {};
             marker.getCenter2d(coordinate);
 
-            let dx: number = -2.25 + (10.8 * coordinate.x / 640.0);
-            let dy: number = 1.8 - (8.0 * coordinate.y / 480.0);
-            dx = -3.0 + (5.4 * coordinate.x / 640.0);
-            dy = 1.2 - (4.0 * coordinate.y / 480.0);
+            let dx: number = -3.0 + (5.4 * coordinate.x / 640.0);
+            let dy: number = 1.2 - (4.0 * coordinate.y / 480.0);
 
             let matrix: THREE.Matrix4 = new THREE.Matrix4();
             matrix.fromArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, dx, dy, 0, 1]);
-            this.object3d.matrixAutoUpdate = false;
+            object3d.matrixAutoUpdate = false;
 
             let diagonal: number = Math.sqrt(
                 Math.pow(marker.sqvertex[0].x - marker.sqvertex[3].x, 2) +
                 Math.pow(marker.sqvertex[0].y - marker.sqvertex[3].y, 2)
                 );
             let scale: number = 0.001 + diagonal / 4000;
-            this.mesh.scale.x = this.mesh.scale.y = this.mesh.scale.z = scale;
+            mesh.scale.x = mesh.scale.y = mesh.scale.z = scale;
 
             let a = {
                 x: marker.sqvertex[0].x,
@@ -100,15 +106,15 @@ export class WebglRenderer {
             m1.makeRotationY(this.findYAngle(a, b));
             m2.makeRotationX(Math.PI / 20);
             m3.makeRotationZ(0);
-            this.object3d.matrix.multiplyMatrices(m1, m2);
-            this.object3d.matrix.multiply(m3);
-            this.object3d.matrix.copyPosition(matrix);
-            this.object3d.visible = true;
+            object3d.matrix.multiplyMatrices(m1, m2);
+            object3d.matrix.multiply(m3);
+            object3d.matrix.copyPosition(matrix);
+            object3d.visible = true;
+            
+            this.renderer.render(this.scene, this.camera);
         }
-
-        this.renderer.render(this.scene, this.camera);
+        
     }
-
 
     private findYAngle(a, b) {
         let dy = b.y - a.y;
@@ -148,9 +154,7 @@ export class WebglRenderer {
     private addBlsLogo(manager: THREE.LoadingManager) {
         new THREE.ObjectLoader(manager).load('/img/LOGO_HIPOLY.json', (function(objects3d: THREE.Object3D[]) {
             return function(object: THREE.Object3D) {
-                object.position.y = 0;
                 object.visible = false;
-                object.scale.x = object.scale.y = object.scale.z = 0.01;
                 objects3d[objects3d.length] = object;
             };
         })(this.objects3d));

@@ -1,10 +1,10 @@
-var gulp = require('gulp'), 
+const gulp = require('gulp'), 
 	Server = require('karma').Server, 
 	wiredep = require('wiredep');
 
 gulp.task('unittest', function(done) {
 
-	var bowerDeps = wiredep(), files = bowerDeps.js.concat([ './build/output.js' ]).concat(
+	const bowerDeps = wiredep(), files = bowerDeps.js.concat([ 'build/notyet/**/*.js' ]).concat(
 			[ 'src/**/*-test.js' ]);
 
 	return new Server({

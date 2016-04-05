@@ -1,0 +1,18 @@
+fps : {{configuration.fps}}
+<fps-progress [(fps)]="configuration.fps"></fps-progress>
+
+<div class="input-controls">
+	3d model:
+    <div>
+        <label>
+            <input #car name="configuration.model" checked="configuration.model === car.value" type="radio" value="0" (click)="configuration.model = car.value" />
+            Car
+        </label>
+    </div>
+    <div>
+        <label>
+            <input #logo name="configuration.model" checked="configuration.model === logo.value" type="radio" value="1" (click)="configuration.model = logo.value" />
+            Logo
+        </label>
+    </div>
+</div>

@@ -29,7 +29,7 @@ System.register(['angular2/core', 'ng2-bootstrap/ng2-bootstrap'], function(expor
                 FpsProgress.prototype.ngOnInit = function () {
                     var _this = this;
                     jQuery(this.m_elementRef.nativeElement).find('.slider').slider({
-                        max: 70,
+                        max: 50,
                         min: 5,
                         range: false,
                         slide: function (event, ui) {

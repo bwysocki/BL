@@ -1,9 +1,8 @@
-var tslint = require('gulp-tslint'), 
-	gulp = require('gulp'), 
-	srcFiles = [ 'src/**/*.ts' ];
+const tslint = require('gulp-tslint'), 
+	gulp = require('gulp');
 
 gulp.task('tslint', function() {
-	return gulp.src(srcFiles)
+	return gulp.src('src/**/*.ts')
 		.pipe(tslint())
 		.pipe(tslint.report('full'));
 });

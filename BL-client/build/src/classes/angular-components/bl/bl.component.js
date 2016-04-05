@@ -1,4 +1,4 @@
-System.register(['angular2/core', './fps-progress.component', '../camera/web-camera-grabber', '../websocket/web-socket-connector', '../webgl/webgl-renderer'], function(exports_1, context_1) {
+System.register(['angular2/core', '../fps-progress.component', '../../camera/web-camera-grabber', '../../websocket/web-socket-connector', '../../webgl/webgl-renderer', '../../angular-services/server-service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/core', './fps-progress.component', '../camera/web-cam
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, fps_progress_component_1, web_camera_grabber_1, web_socket_connector_1, webgl_renderer_1;
+    var core_1, fps_progress_component_1, web_camera_grabber_1, web_socket_connector_1, webgl_renderer_1, server_service_1;
     var ModelName, BLComponent;
     return {
         setters:[
@@ -28,6 +28,9 @@ System.register(['angular2/core', './fps-progress.component', '../camera/web-cam
             },
             function (webgl_renderer_1_1) {
                 webgl_renderer_1 = webgl_renderer_1_1;
+            },
+            function (server_service_1_1) {
+                server_service_1 = server_service_1_1;
             }],
         execute: function() {
             (function (ModelName) {
@@ -36,10 +39,11 @@ System.register(['angular2/core', './fps-progress.component', '../camera/web-cam
             })(ModelName || (ModelName = {}));
             exports_1("ModelName", ModelName);
             BLComponent = (function () {
-                function BLComponent() {
+                function BLComponent(serverService) {
+                    this.serverService = serverService;
                     this.configuration = {
                         fps: 30,
-                        modelIndex: ModelName.CAR
+                        model: ModelName.LOGO
                     };
                     Logger.useDefaults();
                     // set up video
@@ -58,9 +62,9 @@ System.register(['angular2/core', './fps-progress.component', '../camera/web-cam
                         directives: [fps_progress_component_1.FpsProgress],
                         selector: 'bl',
                         styles: ["\n        h1 {\n            color: blue    \n        }\n        .progress {\n            width: 500px;\n        }\n    "],
-                        template: "\n            <h1>test me {{configuration.modelIndex}}, {{configuration.fps}} </h1> \n            <input [(ngModel)]=\"configuration.fps\">\n            <fps-progress [(fps)]=\"configuration.fps\"></fps-progress>\n    "
+                        templateUrl: '/src/classes/angular-components/bl/bl.component.html'
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [server_service_1.ServerService])
                 ], BLComponent);
                 return BLComponent;
             }());
