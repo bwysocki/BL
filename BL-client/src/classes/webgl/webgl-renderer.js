@@ -1,4 +1,5 @@
 "use strict";
+var bl_1 = require('../angular-components/bl/bl');
 var WebglRenderer = (function () {
     function WebglRenderer(canvasId, videoGrabber, configuration) {
         this.objects3d = [];
@@ -40,20 +41,21 @@ var WebglRenderer = (function () {
         })(this, performance.now()));
     };
     WebglRenderer.prototype.renderingFn = function () {
-        var marker = this.videoGrabber.detectMarker();
+        var marker = this.videoGrabber.detectMarker(this.configuration);
         var object3d = this.objects3d[this.configuration.model];
         var mesh = this.objects3d[this.configuration.model].children[0];
         if (this.currentModel !== this.configuration.model) {
             this.objects3d[this.currentModel].visible = false;
             this.currentModel = this.configuration.model;
         }
+        if (this.currentModel == bl_1.ModelName.LOGO) {
+            mesh.material.color = new THREE.Color(this.configuration.logoColor);
+        }
         if (!_.isUndefined(marker)) {
             var coordinate = {};
             marker.getCenter2d(coordinate);
-            var dx = -2.25 + (10.8 * coordinate.x / 640.0);
-            var dy = 1.8 - (8.0 * coordinate.y / 480.0);
-            dx = -3.0 + (5.4 * coordinate.x / 640.0);
-            dy = 1.2 - (4.0 * coordinate.y / 480.0);
+            var dx = -3.0 + (5.4 * coordinate.x / 640.0);
+            var dy = 1.2 - (4.0 * coordinate.y / 480.0);
             var matrix = new THREE.Matrix4();
             matrix.fromArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, dx, dy, 0, 1]);
             object3d.matrixAutoUpdate = false;
@@ -78,8 +80,8 @@ var WebglRenderer = (function () {
             object3d.matrix.multiply(m3);
             object3d.matrix.copyPosition(matrix);
             object3d.visible = true;
+            this.renderer.render(this.scene, this.camera);
         }
-        this.renderer.render(this.scene, this.camera);
     };
     WebglRenderer.prototype.findYAngle = function (a, b) {
         var dy = b.y - a.y;
@@ -107,9 +109,7 @@ var WebglRenderer = (function () {
     WebglRenderer.prototype.addBlsLogo = function (manager) {
         new THREE.ObjectLoader(manager).load('/img/LOGO_HIPOLY.json', (function (objects3d) {
             return function (object) {
-                object.position.y = 0;
                 object.visible = false;
-                object.scale.x = object.scale.y = object.scale.z = 0.01;
                 objects3d[objects3d.length] = object;
             };
         })(this.objects3d));

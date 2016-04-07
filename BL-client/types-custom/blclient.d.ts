@@ -1,6 +1,8 @@
 interface Message {
-    name: string;
-    message: string;
+    model: number;
+    fps: number;
+    logoColor: string;
+    threshold: number;
 }
 interface Socket {
     on(event: string, callback: (data: Message) => void): void;

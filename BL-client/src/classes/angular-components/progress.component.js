@@ -7,37 +7,49 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('angular2/core');
 var ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
-var FpsProgress = (function () {
-    function FpsProgress(m_elementRef) {
+var Progress = (function () {
+    function Progress(m_elementRef) {
         this.m_elementRef = m_elementRef;
-        this.fpsChange = new core_1.EventEmitter();
+        this.valChange = new core_1.EventEmitter();
     }
-    FpsProgress.prototype.ngOnInit = function () {
+    Progress.prototype.ngOnInit = function () {
         var _this = this;
         jQuery(this.m_elementRef.nativeElement).find('.slider').slider({
-            max: 70,
-            min: 5,
+            max: ~~this.max,
+            min: ~~this.min,
             range: false,
             slide: function (event, ui) {
-                _this.fps = ui.value;
-                _this.fpsChange.next(_this.fps);
+                _this.val = ui.value;
+                _this.valChange.next(_this.val);
             },
-            value: this.fps
+            value: this.val === undefined ? 0 : this.val
+        });
+        this.observable.subscribe(function (val) {
+            jQuery(_this.m_elementRef.nativeElement).find('.slider').slider('value', val);
         });
     };
     __decorate([
         core_1.Input()
-    ], FpsProgress.prototype, "fps", void 0);
+    ], Progress.prototype, "val", void 0);
+    __decorate([
+        core_1.Input()
+    ], Progress.prototype, "max", void 0);
+    __decorate([
+        core_1.Input()
+    ], Progress.prototype, "min", void 0);
+    __decorate([
+        core_1.Input()
+    ], Progress.prototype, "observable", void 0);
     __decorate([
         core_1.Output()
-    ], FpsProgress.prototype, "fpsChange", void 0);
-    FpsProgress = __decorate([
+    ], Progress.prototype, "valChange", void 0);
+    Progress = __decorate([
         core_1.Component({
             directives: [ng2_bootstrap_1.PROGRESSBAR_DIRECTIVES],
-            selector: 'fps-progress',
+            selector: 'bl-progress',
             template: "<div class=\"slider\"></div>"
         })
-    ], FpsProgress);
-    return FpsProgress;
+    ], Progress);
+    return Progress;
 }());
-exports.FpsProgress = FpsProgress;
+exports.Progress = Progress;

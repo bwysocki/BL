@@ -50,7 +50,7 @@ System.register(['../angular-components/bl/bl'], function(exports_1, context_1) 
                     })(this, performance.now()));
                 };
                 WebglRenderer.prototype.renderingFn = function () {
-                    var marker = this.videoGrabber.detectMarker();
+                    var marker = this.videoGrabber.detectMarker(this.configuration);
                     var object3d = this.objects3d[this.configuration.model];
                     var mesh = this.objects3d[this.configuration.model].children[0];
                     if (this.currentModel !== this.configuration.model) {

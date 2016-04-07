@@ -1,4 +1,4 @@
-System.register(['angular2/core', '../websocket/web-socket-connector'], function(exports_1, context_1) {
+System.register(['angular2/core'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,22 +10,28 @@ System.register(['angular2/core', '../websocket/web-socket-connector'], function
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, web_socket_connector_1;
+    var core_1;
     var ServerService;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (web_socket_connector_1_1) {
-                web_socket_connector_1 = web_socket_connector_1_1;
             }],
         execute: function() {
             ServerService = (function () {
                 function ServerService() {
-                    var websocket = new web_socket_connector_1.WebSocketConnector('http://localhost:3001/updateinfo');
-                    websocket.listen();
+                    this.INIT_COMMAND = 'INIT';
+                    this.socket = io('http://localhost:3001/updateinfo');
                 }
+                ServerService.prototype.listen = function () {
+                    var _this = this;
+                    return new Promise(function (resolve, reject) {
+                        _this.socket.on(_this.INIT_COMMAND, function (data) {
+                            Logger.info('Used configuration: ', data);
+                            resolve(data);
+                        });
+                    });
+                };
                 ServerService = __decorate([
                     core_1.Injectable(), 
                     __metadata('design:paramtypes', [])

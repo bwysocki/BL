@@ -1,0 +1,11 @@
+BL-client:
+	npm install
+	bower install
+	typings install
+	gulp
+	http://localhost:3000/index.html
+	
+BL-server
+	npm install
+	node server.js
+	http://localhost:3001/updateinfo

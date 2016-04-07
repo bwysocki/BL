@@ -1,5 +1,5 @@
 fps : {{configuration.fps}}
-<fps-progress [(fps)]="configuration.fps"></fps-progress>
+<bl-progress min="5" max="45" (valChange)="configuration.fps=$event" [observable]="fpsObservable"></bl-progress>
 
 <hr />
 
@@ -7,20 +7,29 @@ fps : {{configuration.fps}}
 	3d model:
     <div>
         <label>
-            <input #car name="configuration.model" checked="configuration.model === car.value" type="radio" value="0" (click)="configuration.model = car.value" />
+            <input #car name="configuration.model" [checked]="configuration.model == car.value" type="radio" value="0" (click)="configuration.model = car.value" />
             Car
         </label>
     </div>
     <div>
         <label>
-            <input #logo name="configuration.model" checked="configuration.model === logo.value" type="radio" value="1" (click)="configuration.model = logo.value" />
+            <input #logo name="configuration.model" [checked]="configuration.model == logo.value" type="radio" value="1" (click)="configuration.model = logo.value" />
             Logo
         </label>
     </div>
 </div>
 
-<hr [hidden]="configuration.model === car.value" />
+<hr />
 
-<div [hidden]="configuration.model === car.value">
+threshold : {{configuration.threshold}}
+<bl-progress min="1" max="20" (valChange)="configuration.threshold=$event" [observable]="thresholdObservable"></bl-progress>
+
+<hr [hidden]="configuration.model == car.value" />
+
+<div [hidden]="configuration.model == car.value">
 	logo color: <input #carColor type="color" name="favcolor" value="{{configuration.logoColor}}" (change)="configuration.logoColor = carColor.value">
 </div>
+
+<hr />
+
+<input type="button" value="save settings" />

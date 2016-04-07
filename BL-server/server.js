@@ -13,9 +13,11 @@ server.listen(3001);
 
 io.of('/updateinfo').on('connection', function(socket) {
 	console.log('New connection: ' + socket.id);
-	socket.emit('UPDATE', {
-		name : 'hello',
-		message : 'world'
+	socket.emit('INIT', {
+		fps: 35,
+        model : 0,
+        logoColor: "#7f7f7f",
+        threshold: 5
 	});
 });
 

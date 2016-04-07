@@ -10,5 +10,5 @@ window.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
-    System.import('src/angular-start').then(null, console.error.bind(console));
+    System.import('src/bootstrap').then(null, console.error.bind(console));
 });

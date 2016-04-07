@@ -1,5 +1,5 @@
 import {VideoConfiguration, ModelName} from '../angular-components/bl/bl';
-import {WebCameraGrabber} from '../camera/web-camera-grabber';
+import {WebCameraGrabber} from '../angular-services/web-camera-grabber';
 
 export class WebglRenderer {
 
@@ -60,7 +60,7 @@ export class WebglRenderer {
 
     private renderingFn() {
 
-        const marker: NyARSquare = this.videoGrabber.detectMarker();
+        const marker: NyARSquare = this.videoGrabber.detectMarker(this.configuration);
         const object3d: THREE.Object3D = this.objects3d[this.configuration.model];
         const mesh: THREE.Mesh = <THREE.Mesh>this.objects3d[this.configuration.model].children[0];
 
