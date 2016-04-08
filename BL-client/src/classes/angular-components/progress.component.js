@@ -14,23 +14,20 @@ var Progress = (function () {
     }
     Progress.prototype.ngOnInit = function () {
         var _this = this;
-        jQuery(this.m_elementRef.nativeElement).find('.slider').slider({
-            max: ~~this.max,
-            min: ~~this.min,
+        var sliderElemenet = jQuery(this.m_elementRef.nativeElement).find('.slider');
+        sliderElemenet.slider({
+            max: parseInt(this.max, 10),
+            min: parseInt(this.min, 10),
             range: false,
             slide: function (event, ui) {
-                _this.val = ui.value;
-                _this.valChange.next(_this.val);
+                _this.valChange.next(ui.value);
             },
-            value: this.val === undefined ? 0 : this.val
+            value: 0
         });
-        this.observable.subscribe(function (val) {
-            jQuery(_this.m_elementRef.nativeElement).find('.slider').slider('value', val);
+        this.valEmitter.subscribe(function (val) {
+            sliderElemenet.slider('value', val);
         });
     };
-    __decorate([
-        core_1.Input()
-    ], Progress.prototype, "val", void 0);
     __decorate([
         core_1.Input()
     ], Progress.prototype, "max", void 0);
@@ -39,7 +36,7 @@ var Progress = (function () {
     ], Progress.prototype, "min", void 0);
     __decorate([
         core_1.Input()
-    ], Progress.prototype, "observable", void 0);
+    ], Progress.prototype, "valEmitter", void 0);
     __decorate([
         core_1.Output()
     ], Progress.prototype, "valChange", void 0);

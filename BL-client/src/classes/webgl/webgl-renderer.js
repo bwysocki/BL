@@ -48,7 +48,7 @@ var WebglRenderer = (function () {
             this.objects3d[this.currentModel].visible = false;
             this.currentModel = this.configuration.model;
         }
-        if (this.currentModel == bl_1.ModelName.LOGO) {
+        if (this.currentModel === bl_1.ModelName.LOGO) {
             mesh.material.color = new THREE.Color(this.configuration.logoColor);
         }
         if (!_.isUndefined(marker)) {

@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'rxjs/Observable', '../progress.component', '../../angular-services/web-camera-grabber', '../../webgl/webgl-renderer', '../../angular-services/server-service'], function(exports_1, context_1) {
+System.register(['angular2/core', '../progress.component', '../../angular-services/web-camera-grabber', '../../webgl/webgl-renderer', '../../angular-services/server-service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,12 @@ System.register(['angular2/core', 'rxjs/Observable', '../progress.component', '.
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, Observable_1, progress_component_1, web_camera_grabber_1, webgl_renderer_1, server_service_1;
+    var core_1, progress_component_1, web_camera_grabber_1, webgl_renderer_1, server_service_1;
     var ModelName, BLComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (Observable_1_1) {
-                Observable_1 = Observable_1_1;
             },
             function (progress_component_1_1) {
                 progress_component_1 = progress_component_1_1;
@@ -45,18 +42,35 @@ System.register(['angular2/core', 'rxjs/Observable', '../progress.component', '.
                     this.videoGrabber = videoGrabber;
                     this.configuration = {};
                     Logger.useDefaults();
-                    this.fpsObservable = Observable_1.Observable.create(function (observer) { return _this.fpsObserver = observer; });
-                    this.thresholdObservable = Observable_1.Observable.create(function (observer) { return _this.thresholdObserver = observer; });
+                    this.fpsEmitter = new core_1.EventEmitter();
+                    this.thresholdEmitter = new core_1.EventEmitter();
                     serverService.listen().then(function (serverConfiguration) {
                         _this.configuration = serverConfiguration;
-                        _this.fpsObserver.next(_this.configuration.fps);
-                        _this.thresholdObserver.next(_this.configuration.threshold);
+                        _this.fpsEmitter.emit(_this.configuration.fps);
+                        _this.thresholdEmitter.emit(_this.configuration.threshold);
                         videoGrabber.play();
                         // start presenting
                         var webglrenderer = new webgl_renderer_1.WebglRenderer('augmented-object', videoGrabber, _this.configuration);
                         webglrenderer.add3dObjectsAndRender();
                     });
                 }
+                BLComponent.prototype.thresholdIsEnabled = function () {
+                    return !this.configuration.thresholdChecked;
+                };
+                BLComponent.prototype.logoIsSelected = function () {
+                    return this.configuration.model === ModelName.LOGO;
+                };
+                BLComponent.prototype.carIsSelected = function () {
+                    return this.configuration.model === ModelName.CAR;
+                };
+                BLComponent.prototype.selectModel = function (val) {
+                    if ('0' === val) {
+                        this.configuration.model = ModelName.CAR;
+                    }
+                    else if ('1' === val) {
+                        this.configuration.model = ModelName.LOGO;
+                    }
+                };
                 BLComponent = __decorate([
                     core_1.Component({
                         directives: [progress_component_1.Progress],

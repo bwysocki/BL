@@ -1,33 +1,48 @@
 fps : {{configuration.fps}}
-<bl-progress min="5" max="45" (valChange)="configuration.fps=$event" [observable]="fpsObservable"></bl-progress>
-
+<bl-progress min="5" max="45" (valChange)="configuration.fps=$event" [valEmitter]="fpsEmitter"></bl-progress>
+ 
 <hr />
 
 <div class="input-controls">
 	3d model:
     <div>
         <label>
-            <input #car name="configuration.model" [checked]="configuration.model == car.value" type="radio" value="0" (click)="configuration.model = car.value" />
+            <input #car name="configuration.model" [checked]="carIsSelected()" type="radio" value="0" (click)="selectModel(car.value)" />
             Car
         </label>
     </div>
     <div>
         <label>
-            <input #logo name="configuration.model" [checked]="configuration.model == logo.value" type="radio" value="1" (click)="configuration.model = logo.value" />
+            <input #logo name="configuration.model" [checked]="logoIsSelected()" type="radio" value="1" (click)="selectModel(logo.value)" />
             Logo
         </label>
     </div>
 </div>
 
+<hr [hidden]="carIsSelected()" />
+
+<div [hidden]="carIsSelected()">
+	logo color: <input #carColor type="color" name="favcolor" value="{{configuration.logoColor}}" (change)="configuration.logoColor = carColor.value">
+</div>
+
 <hr />
 
-threshold : {{configuration.threshold}}
-<bl-progress min="1" max="20" (valChange)="configuration.threshold=$event" [observable]="thresholdObservable"></bl-progress>
+<div class="input-controls">
+	black and white threshold detection:
+	<div>
+		<label>
+	        <input #thresholdChecked type="checkbox" name="configuration.thresholdChecked" [checked]="configuration.thresholdChecked" 
+	        	(change)="configuration.thresholdChecked = thresholdChecked.checked" /> 
+	        use it
+	    </label>
+    </div>
+</div>
 
-<hr [hidden]="configuration.model == car.value" />
+<hr [hidden]="thresholdIsEnabled()" />
 
-<div [hidden]="configuration.model == car.value">
-	logo color: <input #carColor type="color" name="favcolor" value="{{configuration.logoColor}}" (change)="configuration.logoColor = carColor.value">
+<div [hidden]="thresholdIsEnabled()">
+	threshold : {{configuration.threshold}}
+	<bl-progress min="1" max="20" (valChange)="configuration.threshold=$event" [valEmitter]="thresholdEmitter"></bl-progress>
 </div>
 
 <hr />

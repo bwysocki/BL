@@ -1,4 +1,4 @@
-System.register(['angular2/core', 'rxjs/Observable', 'ng2-bootstrap/ng2-bootstrap'], function(exports_1, context_1) {
+System.register(['angular2/core', 'ng2-bootstrap/ng2-bootstrap'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,15 +10,12 @@ System.register(['angular2/core', 'rxjs/Observable', 'ng2-bootstrap/ng2-bootstra
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, Observable_1, ng2_bootstrap_1;
+    var core_1, ng2_bootstrap_1;
     var Progress;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (Observable_1_1) {
-                Observable_1 = Observable_1_1;
             },
             function (ng2_bootstrap_1_1) {
                 ng2_bootstrap_1 = ng2_bootstrap_1_1;
@@ -33,15 +30,15 @@ System.register(['angular2/core', 'rxjs/Observable', 'ng2-bootstrap/ng2-bootstra
                     var _this = this;
                     var sliderElemenet = jQuery(this.m_elementRef.nativeElement).find('.slider');
                     sliderElemenet.slider({
-                        max: ~~this.max,
-                        min: ~~this.min,
+                        max: parseInt(this.max, 10),
+                        min: parseInt(this.min, 10),
                         range: false,
                         slide: function (event, ui) {
                             _this.valChange.next(ui.value);
                         },
                         value: 0
                     });
-                    this.observable.subscribe(function (val) {
+                    this.valEmitter.subscribe(function (val) {
                         sliderElemenet.slider('value', val);
                     });
                 };
@@ -55,8 +52,8 @@ System.register(['angular2/core', 'rxjs/Observable', 'ng2-bootstrap/ng2-bootstra
                 ], Progress.prototype, "min", void 0);
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', Observable_1.Observable)
-                ], Progress.prototype, "observable", void 0);
+                    __metadata('design:type', core_1.EventEmitter)
+                ], Progress.prototype, "valEmitter", void 0);
                 __decorate([
                     core_1.Output(), 
                     __metadata('design:type', core_1.EventEmitter)

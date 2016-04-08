@@ -18,8 +18,9 @@ gulp.task('watch', function () {
 			});
 		}
 	});
-	
-    //gulp.watch(['src/**/*.ts']).on('change', livereload.changed);
-    gulp.watch(['build/output.js'], livereload.changed);
-    gulp.watch(['src/**/*.html'], livereload.changed);
+    gulp.watch(['src/**/*.html'], function () {
+    	gulp.start(['html'], function () {
+			livereload();
+		});
+    });
 });

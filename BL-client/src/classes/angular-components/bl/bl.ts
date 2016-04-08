@@ -1,6 +1,4 @@
-import {Component} from 'angular2/core';
-import {Observable} from 'rxjs/Observable';
-import {Observer} from 'rxjs/Observer';
+import {Component, EventEmitter} from 'angular2/core';
 import {Progress } from '../progress.component';
 import {WebCameraGrabber} from '../../angular-services/web-camera-grabber';
 import {WebglRenderer} from '../../webgl/webgl-renderer';
@@ -16,6 +14,7 @@ export interface VideoConfiguration {
     fps?: number;
     logoColor?: string;
     threshold?: number;
+    thresholdChecked?: boolean;
 }
 
 @Component({
@@ -26,23 +25,21 @@ export interface VideoConfiguration {
 export class BLComponent {
 
     public configuration: VideoConfiguration = {};
-    public fpsObservable: Observable<number>;
-    public thresholdObservable: Observable<number>;
-    private fpsObserver: Observer<number>;
-    private thresholdObserver: Observer<number>;
+    public fpsEmitter: EventEmitter<number>;
+    public thresholdEmitter: EventEmitter<number>;
 
     constructor(private serverService: ServerService, private videoGrabber: WebCameraGrabber) {
 
         Logger.useDefaults();
-        
-        this.fpsObservable = Observable.create((observer) => this.fpsObserver = observer);
-        this.thresholdObservable = Observable.create((observer) => this.thresholdObserver = observer);
+
+        this.fpsEmitter = new EventEmitter<number>();
+        this.thresholdEmitter = new EventEmitter<number>();
 
         serverService.listen().then((serverConfiguration: VideoConfiguration) => {
-            
+
             this.configuration = serverConfiguration;
-            this.fpsObserver.next(this.configuration.fps);
-            this.thresholdObserver.next(this.configuration.threshold);
+            this.fpsEmitter.emit(this.configuration.fps);
+            this.thresholdEmitter.emit(this.configuration.threshold);
 
             videoGrabber.play();
 
@@ -52,6 +49,26 @@ export class BLComponent {
 
         });
 
+    }
+
+    public thresholdIsEnabled(): boolean {
+        return !this.configuration.thresholdChecked;
+    }
+
+    public logoIsSelected(): boolean {
+        return this.configuration.model === ModelName.LOGO;
+    }
+
+    public carIsSelected(): boolean {
+        return this.configuration.model === ModelName.CAR;
+    }
+
+    public selectModel(val: string): void {
+        if ('0' === val) {
+            this.configuration.model = ModelName.CAR;
+        } else if ('1' === val) {
+            this.configuration.model = ModelName.LOGO;
+        }
     }
 
 }

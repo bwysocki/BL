@@ -14,7 +14,7 @@ var WebCameraGrabber = (function () {
         this.URL = win.URL || win.webkitURL || win.mozURL || win.msURL;
         this.screen = document.getElementById('screen');
         var param = new FLARParam(640, 480);
-        this.detector = new FLARMultiIdMarkerDetector(param, 120); //FLARSingleMarkerDetector
+        this.detector = new FLARMultiIdMarkerDetector(param, 120);
         this.detector.setContinueMode(true);
     }
     WebCameraGrabber.prototype.play = function () {
@@ -41,7 +41,7 @@ var WebCameraGrabber = (function () {
         var raster = new NyARRgbRaster_Canvas2D(this.screen);
         var threshold = 70;
         var count = this.detector.detectMarkerLite(raster, threshold);
-        while (count === 0 && threshold < 255) {
+        while (configuration.thresholdChecked && count === 0 && threshold < 255) {
             threshold += configuration.threshold;
             count = this.detector.detectMarkerLite(raster, threshold);
         }

@@ -6,7 +6,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('angular2/core');
-var Observable_1 = require('rxjs/Observable');
 var progress_component_1 = require('../progress.component');
 var webgl_renderer_1 = require('../../webgl/webgl-renderer');
 (function (ModelName) {
@@ -21,16 +20,27 @@ var BLComponent = (function () {
         this.videoGrabber = videoGrabber;
         this.configuration = {};
         Logger.useDefaults();
-        this.fpsobservable = Observable_1.Observable.create(function (observer) { return _this.fpsObserver = observer; });
+        this.fpsEmitter = new core_1.EventEmitter();
+        this.thresholdEmitter = new core_1.EventEmitter();
         serverService.listen().then(function (serverConfiguration) {
             _this.configuration = serverConfiguration;
-            _this.fpsObserver.next(_this.configuration.fps);
+            _this.fpsEmitter.emit(_this.configuration.fps);
+            _this.thresholdEmitter.emit(_this.configuration.threshold);
             videoGrabber.play();
             // start presenting
             var webglrenderer = new webgl_renderer_1.WebglRenderer('augmented-object', videoGrabber, _this.configuration);
             webglrenderer.add3dObjectsAndRender();
         });
     }
+    BLComponent.prototype.thresholdIsEnabled = function () {
+        return !this.configuration.thresholdChecked;
+    };
+    BLComponent.prototype.logoIsSelected = function () {
+        return this.configuration.model === ModelName.LOGO;
+    };
+    BLComponent.prototype.carIsSelected = function () {
+        return this.configuration.model === ModelName.CAR;
+    };
     BLComponent = __decorate([
         core_1.Component({
             directives: [progress_component_1.Progress],

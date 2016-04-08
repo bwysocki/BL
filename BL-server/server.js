@@ -14,10 +14,11 @@ server.listen(3001);
 io.of('/updateinfo').on('connection', function(socket) {
 	console.log('New connection: ' + socket.id);
 	socket.emit('INIT', {
-		fps: 35,
+		fps: 20,
         model : 0,
         logoColor: "#7f7f7f",
-        threshold: 5
+        threshold: 15,
+        thresholdChecked: false
 	});
 });
 

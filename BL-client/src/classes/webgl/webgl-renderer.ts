@@ -68,9 +68,9 @@ export class WebglRenderer {
             this.objects3d[this.currentModel].visible = false;
             this.currentModel = this.configuration.model;
         }
-        
-        if (this.currentModel == ModelName.LOGO) {
-            mesh.material.color = new THREE.Color(this.configuration.logoColor);
+
+        if (this.currentModel === ModelName.LOGO) {
+            (<any>mesh.material).color = new THREE.Color(this.configuration.logoColor);
         }
 
         if (!_.isUndefined(marker)) {
@@ -110,10 +110,10 @@ export class WebglRenderer {
             object3d.matrix.multiply(m3);
             object3d.matrix.copyPosition(matrix);
             object3d.visible = true;
-            
+
             this.renderer.render(this.scene, this.camera);
         }
-        
+
     }
 
     private findYAngle(a, b) {
