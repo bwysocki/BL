@@ -1,13 +1,13 @@
-import {beforeEach, describe, expect, it} from 'angular2/testing';
+import {beforeEach, describe, expect, it, inject, beforeEachProviders} from 'angular2/testing';
 import {ServerService} from './server-service';
 import {VideoConfiguration} from '../angular-components/bl/bl';
 
 describe('Web socket server service ', () => {
     'use strict';
 
-    let websocket: ServerService;
+    let service: ServerService;
     let mockServerResponse = () => {
-        (<any>websocket.socket)._callbacks.$INIT[0].call(websocket.socket, {
+        (<any>service.socket)._callbacks.$INIT[0].call(service.socket, {
             fps: 20,
             model : 0,
             logoColor: '#7f7f7f',
@@ -16,26 +16,28 @@ describe('Web socket server service ', () => {
         });
     };
 
-    beforeEach(() => {
-        websocket = new ServerService();
-    });
+    beforeEachProviders(() => [ServerService]);
+
+    beforeEach(inject([ServerService], (serverService) => {
+        service = serverService;
+    }));
 
     it('is initialized.', () => {
-        expect(websocket.socket).not.toBeNull();
+        expect(service.socket).not.toBeNull();
     });
 
     it('started listening.', () => {
-        spyOn(websocket.socket, 'on');
-        websocket.listen();
-        expect(websocket.socket.on).toHaveBeenCalled();
+        spyOn(service.socket, 'on');
+        service.listen();
+        expect(service.socket.on).toHaveBeenCalled();
     });
 
     it('returned promise after listening.', () => {
-        expect(websocket.listen()).toBePromise();
+        expect(service.listen()).toBePromise();
     });
 
     it('returned configuration after promise fulfilled.', (done: () => void) => {
-        let configurationPromise: Promise<VideoConfiguration> = websocket.listen();
+        let configurationPromise: Promise<VideoConfiguration> = service.listen();
         configurationPromise.then((conf: VideoConfiguration) => {
             expect(conf).not.toBeUndefined();
             expect(conf).not.toBeNull();
