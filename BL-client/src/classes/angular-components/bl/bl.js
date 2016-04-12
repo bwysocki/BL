@@ -41,6 +41,14 @@ var BLComponent = (function () {
     BLComponent.prototype.carIsSelected = function () {
         return this.configuration.model === ModelName.CAR;
     };
+    BLComponent.prototype.selectModel = function (val) {
+        if ('0' === val) {
+            this.configuration.model = ModelName.CAR;
+        }
+        else if ('1' === val) {
+            this.configuration.model = ModelName.LOGO;
+        }
+    };
     BLComponent = __decorate([
         core_1.Component({
             directives: [progress_component_1.Progress],

@@ -38,8 +38,24 @@
 		<script src="../bower_components/jquery/dist/jquery.js"></script>
 		<script src="../bower_components/jquery-ui/jquery-ui.js"></script>
 		<!-- endbower -->
-		<script src=js-vendor/JSARToolKit.min.js></script>
-		<script src=src/app.js></script>
+		<script src="js-vendor/JSARToolKit.min.js"></script>
+		<script>
+			window.addEventListener('load', function() {
+			    'use strict';
+			    
+			    System.config({
+			        map: {
+			            moment: '../bower_components/moment/moment.js'
+			        },
+			        packages: {
+			            'src': {
+			                defaultExtension: 'js'
+			            }
+			        }
+			    });
+			    System.import('/src/bootstrap').then(null, console.error.bind(console));
+			});
+		</script>
 		
 	</body>
 </html>

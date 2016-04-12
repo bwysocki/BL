@@ -8,18 +8,19 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require('angular2/core');
 var ServerService = (function () {
     function ServerService() {
-        this.INIT_COMMAND = 'INIT';
-        this.socket = io('http://localhost:3001/updateinfo');
+        this.socket = io(ServerService.URL);
     }
     ServerService.prototype.listen = function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            _this.socket.on(_this.INIT_COMMAND, function (data) {
+            _this.socket.on(ServerService.INIT_COMMAND, function (data) {
                 Logger.info('Used configuration: ', data);
                 resolve(data);
             });
         });
     };
+    ServerService.INIT_COMMAND = 'INIT';
+    ServerService.URL = 'http://localhost:3001/updateinfo';
     ServerService = __decorate([
         core_1.Injectable()
     ], ServerService);

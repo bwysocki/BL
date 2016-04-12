@@ -42,7 +42,7 @@ var Progress = (function () {
     ], Progress.prototype, "valChange", void 0);
     Progress = __decorate([
         core_1.Component({
-            directives: [ng2_bootstrap_1.PROGRESSBAR_DIRECTIVES],
+            directives: [ng2_bootstrap_1.Progressbar],
             selector: 'bl-progress',
             template: "<div class=\"slider\"></div>"
         })

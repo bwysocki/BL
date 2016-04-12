@@ -11,5 +11,9 @@ interface Coordinate {
     x?: number;
     y?: number;
 }
+interface JasminePromiseMatchers {
+    install: () => void;
+    uinstall: () => void;    
+}
 declare var io: (url: string) => Socket;
 

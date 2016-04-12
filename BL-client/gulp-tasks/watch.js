@@ -13,7 +13,7 @@ gulp.task('watch', function () {
 	gulp.watch(['src/**/*.ts'], function () {
 		if (previousInvocation + 5000 < getNow()){
 			previousInvocation = getNow();
-			gulp.start(['compile-ts', 'tslint'], function () {
+			gulp.start(['compile-ts', 'tslint', 'unittest'], function () {
 				livereload();
 			});
 		}
@@ -23,4 +23,5 @@ gulp.task('watch', function () {
 			livereload();
 		});
     });
+   	gulp.watch('src/styles/app.scss', ['sass']);
 });
