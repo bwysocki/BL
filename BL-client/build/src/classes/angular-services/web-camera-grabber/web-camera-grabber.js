@@ -38,10 +38,13 @@ var WebCameraGrabber = (function () {
             Logger.error('Native web camera streaming (getUserMedia) not supported in this browser.');
         }
     };
-    WebCameraGrabber.prototype.detectMarker = function (configuration) {
+    WebCameraGrabber.prototype.getScreenFromVideo = function () {
         this.screen.getContext('2d').drawImage(this.video, 0, 0, this.video.videoWidth, this.video.videoHeight);
         this.screen.changed = true;
-        var raster = new NyARRgbRaster_Canvas2D(this.screen);
+        return this.screen;
+    };
+    WebCameraGrabber.prototype.detectMarker = function (configuration) {
+        var raster = new NyARRgbRaster_Canvas2D(this.getScreenFromVideo());
         var threshold = 70;
         var count = this.detector.detectMarkerLite(raster, threshold);
         while (configuration.thresholdChecked && count === 0 && threshold < 255) {

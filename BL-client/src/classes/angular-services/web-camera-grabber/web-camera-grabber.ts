@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core';
-import {VideoConfiguration} from '../angular-components/bl/bl';
+import {VideoConfiguration} from '../../angular-components/bl/bl';
 
 @Injectable()
 export class WebCameraGrabber {
@@ -45,12 +45,15 @@ export class WebCameraGrabber {
         }
     }
 
-    public detectMarker(configuration: VideoConfiguration): NyARSquare {
-
+    public getScreenFromVideo(): HTMLCanvasElement {
         this.screen.getContext('2d').drawImage(this.video, 0, 0, this.video.videoWidth, this.video.videoHeight);
         (<any>this.screen).changed = true;
 
-        let raster: Detector.NyARRgbRaster_Canvas2D = new NyARRgbRaster_Canvas2D(this.screen);
+        return this.screen;
+    }
+
+    public detectMarker(configuration: VideoConfiguration): NyARSquare {
+        let raster: Detector.NyARRgbRaster_Canvas2D = new NyARRgbRaster_Canvas2D(this.getScreenFromVideo());
         let threshold = 70;
         let count: number = this.detector.detectMarkerLite(raster, threshold);
         while (configuration.thresholdChecked && count === 0 && threshold < 255) {

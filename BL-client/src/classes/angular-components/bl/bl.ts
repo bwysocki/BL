@@ -1,8 +1,8 @@
 import {Component, EventEmitter} from 'angular2/core';
 import {Progress } from '../progress.component';
-import {WebCameraGrabber} from '../../angular-services/web-camera-grabber';
+import {WebCameraGrabber} from '../../angular-services/web-camera-grabber/web-camera-grabber';
 import {WebglRenderer} from '../../webgl/webgl-renderer';
-import {ServerService} from '../../angular-services/server-service';
+import {ServerService} from '../../angular-services/server-service/server-service';
 
 export enum ModelName {
     CAR,

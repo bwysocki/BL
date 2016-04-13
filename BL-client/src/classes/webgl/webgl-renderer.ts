@@ -1,5 +1,5 @@
 import {VideoConfiguration, ModelName} from '../angular-components/bl/bl';
-import {WebCameraGrabber} from '../angular-services/web-camera-grabber';
+import {WebCameraGrabber} from '../angular-services/web-camera-grabber/web-camera-grabber';
 
 export class WebglRenderer {
 

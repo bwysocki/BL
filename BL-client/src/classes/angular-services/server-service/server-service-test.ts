@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, inject, beforeEachProviders} from 'angular2/testing';
 import {ServerService} from './server-service';
-import {VideoConfiguration} from '../angular-components/bl/bl';
+import {VideoConfiguration} from '../../angular-components/bl/bl';
 
 describe('Web socket server service ', () => {
     'use strict';

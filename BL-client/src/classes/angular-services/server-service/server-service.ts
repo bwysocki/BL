@@ -1,5 +1,5 @@
 import {Injectable} from 'angular2/core';
-import {VideoConfiguration} from '../angular-components/bl/bl';
+import {VideoConfiguration} from '../../angular-components/bl/bl';
 
 @Injectable()
 export class ServerService {

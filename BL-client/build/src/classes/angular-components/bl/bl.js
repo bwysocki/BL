@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('angular2/core');
 var progress_component_1 = require('../progress.component');
-var web_camera_grabber_1 = require('../../angular-services/web-camera-grabber');
+var web_camera_grabber_1 = require('../../angular-services/web-camera-grabber/web-camera-grabber');
 var webgl_renderer_1 = require('../../webgl/webgl-renderer');
-var server_service_1 = require('../../angular-services/server-service');
+var server_service_1 = require('../../angular-services/server-service/server-service');
 (function (ModelName) {
     ModelName[ModelName["CAR"] = 0] = "CAR";
     ModelName[ModelName["LOGO"] = 1] = "LOGO";
