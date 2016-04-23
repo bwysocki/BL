@@ -1,6 +1,7 @@
-var app = require('express')();
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
+const app = require('express')();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+const amqp = require('amqp');
 
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -22,4 +23,29 @@ io.of('/updateinfo').on('connection', function(socket) {
 	});
 });
 
+//rabbitMQ
+const connection = amqp.createConnection({ 
+  host: 'localhost',
+  login: 'admin',
+  password: 'admin',
+  vhost: 'dev'
+});
+connection.on('ready', () => {
+  console.log('Connection to AQMP established.');
+  // Use the default 'amq.topic' exchange
+  connection.queue('my-queue', function (q) {
+      // Catch all messages
+      q.bind('#');
+
+      // Receive messages
+      q.subscribe(function (message) {
+        // Print messages to stdout
+        console.log(message);
+      });
+  });
+}, (e) => {
+  console.log('Can not establish connection to AMQP', e);
+});
+
 console.log('Server running at http://127.0.0.1:3001/');
+

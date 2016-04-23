@@ -9,3 +9,12 @@ BL-server
 	npm install
 	node server.js
 	http://localhost:3001/updateinfo
+
+RabbitMQ
+	rabbitmq-plugins enable rabbitmq_management (optional)
+	service rabbitmq-server restart
+	rabbitmqctl add_user admin admin
+	rabbitmqctl add_vhost dev
+	rabbitmqctl set_permissions -p dev admin ".*" ".*" ".*"
+	
+	
