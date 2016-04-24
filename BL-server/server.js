@@ -2,6 +2,7 @@ const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const amqp = require('amqp');
+const config = require('config-node')();
 
 app.use(function(req, res, next) {
 	res.header("Access-Control-Allow-Origin", "http://localhost:3000");
@@ -25,23 +26,39 @@ io.of('/updateinfo').on('connection', function(socket) {
 
 //rabbitMQ
 const connection = amqp.createConnection({ 
-  host: 'localhost',
-  login: 'admin',
-  password: 'admin',
-  vhost: 'dev'
+  host: config.amqp.host,
+  port: config.amqp.port,
+  login: config.amqp.login,
+  password: config.amqp.password,
+  vhost: config.amqp.vhost
 });
+
 connection.on('ready', () => {
   console.log('Connection to AQMP established.');
+  
+  const blExchange = connection.exchange(config.amqp.exchange, {
+    type: 'topic',
+    durable: false,
+    autoDelete: false  
+  }, (exchange) => {
+     console.log('Exchange ' + exchange.name + ' is open.');
+  });
+
   // Use the default 'amq.topic' exchange
   connection.queue('my-queue', function (q) {
-      // Catch all messages
-      q.bind('#');
-
-      // Receive messages
       q.subscribe(function (message) {
         // Print messages to stdout
         console.log(message);
       });
+      
+      q.bind(config.amqp.exchange, config.amqp.routingKey, function() {
+	console.log('Exchange bound to queue.');
+	//test	
+	blExchange.publish(config.amqp.routingKey, { test: '1'}, {}, function() {
+	
+      	});
+      });
+      
   });
 }, (e) => {
   console.log('Can not establish connection to AMQP', e);
