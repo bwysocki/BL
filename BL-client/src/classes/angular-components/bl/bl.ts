@@ -1,7 +1,7 @@
 import {Component, EventEmitter} from 'angular2/core';
 import {Progress } from '../progress.component';
 import {WebCameraGrabber} from '../../angular-services/web-camera-grabber/web-camera-grabber';
-import {WebglRenderer} from '../../webgl/webgl-renderer';
+import {WebglRenderer} from '../../angular-services/webgl-renderer/webgl-renderer';
 import {ServerService} from '../../angular-services/server-service/server-service';
 
 export enum ModelName {
@@ -28,7 +28,7 @@ export class BLComponent {
     public fpsEmitter: EventEmitter<number>;
     public thresholdEmitter: EventEmitter<number>;
 
-    constructor(private serverService: ServerService, private videoGrabber: WebCameraGrabber) {
+    constructor(private serverService: ServerService, private videoGrabber: WebCameraGrabber, private webglRenderer: WebglRenderer) {
 
         Logger.useDefaults();
 
@@ -43,9 +43,8 @@ export class BLComponent {
 
             videoGrabber.play();
 
-            // start presenting
-            const webglrenderer: WebglRenderer = new WebglRenderer('augmented-object', videoGrabber, this.configuration);
-            webglrenderer.add3dObjectsAndRender();
+            webglRenderer.useConfiguration(this.configuration);
+            webglRenderer.add3dObjectsAndRender();
 
         });
 

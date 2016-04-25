@@ -7,17 +7,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var core_1 = require('angular2/core');
 var progress_component_1 = require('../progress.component');
-var webgl_renderer_1 = require('../../webgl/webgl-renderer');
 (function (ModelName) {
     ModelName[ModelName["CAR"] = 0] = "CAR";
     ModelName[ModelName["LOGO"] = 1] = "LOGO";
 })(exports.ModelName || (exports.ModelName = {}));
 var ModelName = exports.ModelName;
 var BLComponent = (function () {
-    function BLComponent(serverService, videoGrabber) {
+    function BLComponent(serverService, videoGrabber, webglRenderer) {
         var _this = this;
         this.serverService = serverService;
         this.videoGrabber = videoGrabber;
+        this.webglRenderer = webglRenderer;
         this.configuration = {};
         Logger.useDefaults();
         this.fpsEmitter = new core_1.EventEmitter();
@@ -27,9 +27,8 @@ var BLComponent = (function () {
             _this.fpsEmitter.emit(_this.configuration.fps);
             _this.thresholdEmitter.emit(_this.configuration.threshold);
             videoGrabber.play();
-            // start presenting
-            var webglrenderer = new webgl_renderer_1.WebglRenderer('augmented-object', videoGrabber, _this.configuration);
-            webglrenderer.add3dObjectsAndRender();
+            webglRenderer.useConfiguration(_this.configuration);
+            webglRenderer.add3dObjectsAndRender();
         });
     }
     BLComponent.prototype.thresholdIsEnabled = function () {

@@ -42,7 +42,7 @@ fps : {{configuration.fps}}
 
 <div [hidden]="thresholdIsEnabled()">
 	threshold : {{configuration.threshold}}
-	<bl-progress min="1" max="20" (valChange)="configuration.threshold=$event" [valEmitter]="thresholdEmitter"></bl-progress>
+	<bl-progress min="5" max="20" (valChange)="configuration.threshold=$event" [valEmitter]="thresholdEmitter"></bl-progress>
 </div>
 
 <hr />

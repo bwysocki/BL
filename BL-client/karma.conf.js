@@ -36,17 +36,20 @@ module.exports = function (config) {
         // - PhantomJS
         // - IE (only Windows; has to be installed with `npm install karma-ie-launcher`)
         // (To debug test in Chrome, change 'PhantomJS' to 'Chrome' & in test.gulp.js change 'action: 'run'' to 'action: 'watch'')
-        browsers: ['PhantomJS2'],
+        browsers: ['PhantomJS'],
 
         // If browser does not capture in given timeout [ms], kill it
-        //captureTimeout: 60000,
+        captureTimeout: 60000,
+        browserDisconnectTimeout : 10000,
+        browserDisconnectTolerance : 1,
+        browserNoActivityTimeout : 60000,
 
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit
         singleRun: false,
 
         plugins: [
-            'karma-phantomjs2-launcher',
+            'karma-phantomjs-launcher',
             'karma-coverage',
             'karma-jasmine',
             'karma-browserify'

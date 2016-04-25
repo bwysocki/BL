@@ -56,7 +56,7 @@ export class WebCameraGrabber {
         let raster: Detector.NyARRgbRaster_Canvas2D = new NyARRgbRaster_Canvas2D(this.getScreenFromVideo());
         let threshold = 70;
         let count: number = this.detector.detectMarkerLite(raster, threshold);
-        while (configuration.thresholdChecked && count === 0 && threshold < 255) {
+        while (configuration.thresholdChecked && count === 0 && threshold < 140) {
             threshold += configuration.threshold;
             count = this.detector.detectMarkerLite(raster, threshold);
         }

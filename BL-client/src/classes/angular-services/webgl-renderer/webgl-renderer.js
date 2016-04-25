@@ -1,12 +1,17 @@
 "use strict";
-var bl_1 = require('../angular-components/bl/bl');
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var core_1 = require('angular2/core');
+var bl_1 = require('../../angular-components/bl/bl');
 var WebglRenderer = (function () {
-    function WebglRenderer(canvasId, videoGrabber, configuration) {
-        this.objects3d = [];
-        var canvas = document.getElementById(canvasId);
-        this.currentModel = configuration.model;
-        this.configuration = configuration;
+    function WebglRenderer(videoGrabber) {
         this.videoGrabber = videoGrabber;
+        this.objects3d = [];
+        var canvas = document.getElementById('augmented-object');
         this.renderer = new THREE.WebGLRenderer({
             canvas: canvas,
             antialias: true,
@@ -17,6 +22,10 @@ var WebglRenderer = (function () {
         this.camera.position.z = 5;
         this.addLight();
     }
+    WebglRenderer.prototype.useConfiguration = function (configuration) {
+        this.currentModel = configuration.model;
+        this.configuration = configuration;
+    };
     WebglRenderer.prototype.add3dObjectsAndRender = function () {
         var _this = this;
         var manager = new THREE.LoadingManager();
@@ -31,33 +40,21 @@ var WebglRenderer = (function () {
     WebglRenderer.prototype.render = function () {
         requestAnimationFrame((function (self, previousTime) {
             return function animate(now) {
-                requestAnimationFrame(animate);
                 var delta = now - previousTime;
                 if (delta > 1000 / self.configuration.fps) {
                     previousTime = now;
                     self.renderingFn();
                 }
+                requestAnimationFrame(animate);
             };
         })(this, performance.now()));
     };
     WebglRenderer.prototype.renderingFn = function () {
         var marker = this.videoGrabber.detectMarker(this.configuration);
-        var object3d = this.objects3d[this.configuration.model];
-        var mesh = this.objects3d[this.configuration.model].children[0];
-        if (this.currentModel !== this.configuration.model) {
-            this.objects3d[this.currentModel].visible = false;
-            this.currentModel = this.configuration.model;
-        }
-        if (this.currentModel === bl_1.ModelName.LOGO) {
-            mesh.material.color = new THREE.Color(this.configuration.logoColor);
-        }
+        var _a = this.getCurrentRenderingConf(), object3d = _a.object3d, mesh = _a.mesh, initialX = _a.initialX, initialY = _a.initialY;
         if (!_.isUndefined(marker)) {
             var coordinate = {};
             marker.getCenter2d(coordinate);
-            var dx = -3.0 + (5.4 * coordinate.x / 640.0);
-            var dy = 1.2 - (4.0 * coordinate.y / 480.0);
-            var matrix = new THREE.Matrix4();
-            matrix.fromArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, dx, dy, 0, 1]);
             object3d.matrixAutoUpdate = false;
             var diagonal = Math.sqrt(Math.pow(marker.sqvertex[0].x - marker.sqvertex[3].x, 2) +
                 Math.pow(marker.sqvertex[0].y - marker.sqvertex[3].y, 2));
@@ -78,15 +75,38 @@ var WebglRenderer = (function () {
             m3.makeRotationZ(0);
             object3d.matrix.multiplyMatrices(m1, m2);
             object3d.matrix.multiply(m3);
-            object3d.matrix.copyPosition(matrix);
+            object3d.matrix.copyPosition(this.updateObjectPositionWithMarker(coordinate, initialX, initialY));
             object3d.visible = true;
             this.renderer.render(this.scene, this.camera);
         }
     };
+    WebglRenderer.prototype.updateObjectPositionWithMarker = function (coordinate, initialX, initialY) {
+        var dx = initialX + (5.4 * coordinate.x / 640.0);
+        var dy = initialY - (4.0 * coordinate.y / 480.0);
+        var matrix = new THREE.Matrix4();
+        matrix.fromArray([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, dx, dy, 0, 1]);
+        return matrix;
+    };
     WebglRenderer.prototype.findYAngle = function (a, b) {
-        var dy = b.y - a.y;
-        var dx = b.x - a.x;
-        return Math.atan2(dy, dx) + Math.PI - 3.2;
+        return Math.atan2(b.y - a.y, b.x - a.x) + Math.PI - 3.2;
+    };
+    WebglRenderer.prototype.getCurrentRenderingConf = function () {
+        var object3d = this.objects3d[this.configuration.model];
+        var mesh = this.objects3d[this.configuration.model].children[0];
+        if (this.currentModel !== this.configuration.model) {
+            this.objects3d[this.currentModel].visible = false;
+            this.currentModel = this.configuration.model;
+        }
+        var initialX = -3.0;
+        var initialY = 1.2;
+        if (this.currentModel === bl_1.ModelName.LOGO) {
+            mesh.material.color = new THREE.Color(this.configuration.logoColor);
+            initialX = -2.5;
+            initialY = 2;
+        }
+        return {
+            object3d: object3d, mesh: mesh, initialX: initialX, initialY: initialY
+        };
     };
     WebglRenderer.prototype.addCarObject = function (manager) {
         new THREE.JSONLoader().load('/img/logo.json', (function (objects3d) {
@@ -128,6 +148,9 @@ var WebglRenderer = (function () {
         light.shadow.mapSize.width = light.shadow.mapSize.height = 1024;
         this.scene.add(light);
     };
+    WebglRenderer = __decorate([
+        core_1.Injectable()
+    ], WebglRenderer);
     return WebglRenderer;
 }());
 exports.WebglRenderer = WebglRenderer;
