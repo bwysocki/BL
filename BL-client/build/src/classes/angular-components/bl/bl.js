@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('angular2/core');
-var progress_component_1 = require('../progress.component');
+var progress_1 = require('../progress/progress');
 var web_camera_grabber_1 = require('../../angular-services/web-camera-grabber/web-camera-grabber');
 var webgl_renderer_1 = require('../../angular-services/webgl-renderer/webgl-renderer');
 var server_service_1 = require('../../angular-services/server-service/server-service');
@@ -56,7 +56,7 @@ var BLComponent = (function () {
     };
     BLComponent = __decorate([
         core_1.Component({
-            directives: [progress_component_1.Progress],
+            directives: [progress_1.Progress],
             selector: 'bl',
             templateUrl: '/src/classes/angular-components/bl/bl.html'
         }), 

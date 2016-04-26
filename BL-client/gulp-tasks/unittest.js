@@ -6,6 +6,7 @@ gulp.task('unittest', function(done) {
 
 	const bowerDeps = wiredep(), files = bowerDeps.js.concat([ 
 	   { pattern: 'src/classes/angular-services/web-camera-grabber/sample-video.png',  watched: false, included: false, served: true},
+	   { pattern: 'src/classes/angular-components/bl/bl.html',  watched: false, included: false, served: true},
 	   'node_modules/traceur/bin/traceur-runtime.js',
 	   'node_modules/angular2/bundles/angular2-polyfills.js',
 	   'node_modules/es6-shim/es6-shim.js',

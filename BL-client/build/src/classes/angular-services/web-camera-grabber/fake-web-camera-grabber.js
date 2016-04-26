@@ -9,24 +9,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('angular2/core');
-var ServerService = (function () {
-    function ServerService() {
-        this.socket = io(ServerService.URL);
+var FakeWebCameraGrabber = (function () {
+    function FakeWebCameraGrabber() {
     }
-    ServerService.prototype.listen = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.socket.on(ServerService.INIT_COMMAND, function (data) {
-                resolve(data);
-            });
-        });
+    FakeWebCameraGrabber.prototype.play = function () {
+        return;
     };
-    ServerService.INIT_COMMAND = 'INIT';
-    ServerService.URL = 'http://localhost:3001/updateinfo';
-    ServerService = __decorate([
+    FakeWebCameraGrabber = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], ServerService);
-    return ServerService;
+    ], FakeWebCameraGrabber);
+    return FakeWebCameraGrabber;
 }());
-exports.ServerService = ServerService;
+exports.FakeWebCameraGrabber = FakeWebCameraGrabber;

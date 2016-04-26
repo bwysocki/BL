@@ -15,7 +15,6 @@ export class ServerService {
     public listen(): Promise<VideoConfiguration> {
         return new Promise((resolve, reject) => {
             this.socket.on(ServerService.INIT_COMMAND, (data: Message) => {
-                Logger.info('Used configuration: ', data);
                 resolve(<VideoConfiguration>data);
             });
         });

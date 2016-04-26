@@ -9,6 +9,8 @@ export class WebCameraGrabber {
     private video: HTMLVideoElement;
     private detector: Detector.FLARMultiIdMarkerDetector;
     private screen: HTMLCanvasElement;
+    private width: number = 640;
+    private height: number = 480;
 
     constructor() {
         let nav = <any> navigator,
@@ -19,7 +21,7 @@ export class WebCameraGrabber {
         this.URL = win.URL || win.webkitURL || win.mozURL || win.msURL;
         this.screen = <HTMLCanvasElement> document.getElementById('screen');
 
-        let param: Detector.FLARParam = new FLARParam(640, 480);
+        let param: Detector.FLARParam = new FLARParam(this.width, this.height);
         this.detector = new FLARMultiIdMarkerDetector(param, 120);
         this.detector.setContinueMode(true);
     }
@@ -46,7 +48,7 @@ export class WebCameraGrabber {
     }
 
     public getScreenFromVideo(): HTMLCanvasElement {
-        this.screen.getContext('2d').drawImage(this.video, 0, 0, this.video.videoWidth, this.video.videoHeight);
+        this.screen.getContext('2d').drawImage(this.video, 0, 0, this.width, this.height);
         (<any>this.screen).changed = true;
 
         return this.screen;

@@ -1,5 +1,5 @@
 import {Component, EventEmitter} from 'angular2/core';
-import {Progress } from '../progress.component';
+import {Progress } from '../progress/progress';
 import {WebCameraGrabber} from '../../angular-services/web-camera-grabber/web-camera-grabber';
 import {WebglRenderer} from '../../angular-services/webgl-renderer/webgl-renderer';
 import {ServerService} from '../../angular-services/server-service/server-service';

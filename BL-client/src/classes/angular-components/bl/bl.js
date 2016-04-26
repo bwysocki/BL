@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 var core_1 = require('angular2/core');
-var progress_component_1 = require('../progress.component');
+var progress_1 = require('../progress/progress');
 (function (ModelName) {
     ModelName[ModelName["CAR"] = 0] = "CAR";
     ModelName[ModelName["LOGO"] = 1] = "LOGO";
@@ -50,7 +50,7 @@ var BLComponent = (function () {
     };
     BLComponent = __decorate([
         core_1.Component({
-            directives: [progress_component_1.Progress],
+            directives: [progress_1.Progress],
             selector: 'bl',
             templateUrl: '/src/classes/angular-components/bl/bl.html'
         })

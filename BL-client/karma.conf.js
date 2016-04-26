@@ -17,6 +17,10 @@ module.exports = function (config) {
         // web server port
         port: 3003,
         
+        proxies: {
+    	  '/src/': '/base/src/'
+    	},
+        
         // enable / disable colors in the output (reporters and logs)
         colors: true,
 

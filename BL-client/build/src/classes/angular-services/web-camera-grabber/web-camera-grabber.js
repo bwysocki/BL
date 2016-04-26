@@ -11,12 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('angular2/core');
 var WebCameraGrabber = (function () {
     function WebCameraGrabber() {
+        this.width = 640;
+        this.height = 480;
         var nav = navigator, win = window;
         this.video = document.querySelector('video');
         this.getUserMedia = nav.getUserMedia || nav.webkitGetUserMedia || nav.mozGetUserMedia || nav.msGetUserMedia;
         this.URL = win.URL || win.webkitURL || win.mozURL || win.msURL;
         this.screen = document.getElementById('screen');
-        var param = new FLARParam(640, 480);
+        var param = new FLARParam(this.width, this.height);
         this.detector = new FLARMultiIdMarkerDetector(param, 120);
         this.detector.setContinueMode(true);
     }
@@ -39,7 +41,7 @@ var WebCameraGrabber = (function () {
         }
     };
     WebCameraGrabber.prototype.getScreenFromVideo = function () {
-        this.screen.getContext('2d').drawImage(this.video, 0, 0, this.video.videoWidth, this.video.videoHeight);
+        this.screen.getContext('2d').drawImage(this.video, 0, 0, this.width, this.height);
         this.screen.changed = true;
         return this.screen;
     };
