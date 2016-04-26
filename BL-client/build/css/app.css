@@ -2,7 +2,14 @@
   margin-top: 40px;
   position: relative; }
   .video-cointainer .video-column {
-    height: 540px; }
+    float: left;
+    height: 540px;
+    margin-left: 20px;
+    position: relative;
+    width: 640px; }
+  .video-cointainer .video-menu {
+    float: left;
+    margin-left: 20px; }
   .video-cointainer #video {
     border: 1px solid black; }
   .video-cointainer #video, .video-cointainer #augmented-object {

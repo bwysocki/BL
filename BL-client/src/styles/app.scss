@@ -3,7 +3,16 @@
 	position: relative;
 	
 	.video-column {
+		float: left;
 		height: 540px;
+		margin-left: 20px;
+		position: relative;
+		width: 640px;
+	}
+	
+	.video-menu {
+		float: left;
+		margin-left: 20px;
 	}
 	
 	#video {
