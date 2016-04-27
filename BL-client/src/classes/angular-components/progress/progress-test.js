@@ -1,10 +1,12 @@
 "use strict";
 var testing_1 = require('angular2/testing');
+var browser_1 = require('angular2/platform/testing/browser');
 var core_1 = require('angular2/core');
 var progress_1 = require('./progress');
 testing_1.describe('Progress component ', function () {
     'use strict';
     var tcb;
+    testing_1.setBaseTestProviders(browser_1.TEST_BROWSER_PLATFORM_PROVIDERS, browser_1.TEST_BROWSER_APPLICATION_PROVIDERS);
     testing_1.beforeEach(testing_1.inject([testing_1.TestComponentBuilder], function (tcBuilder) {
         tcb = tcBuilder;
     }));

@@ -14,7 +14,6 @@ var ServerService = (function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
             _this.socket.on(ServerService.INIT_COMMAND, function (data) {
-                Logger.info('Used configuration: ', data);
                 resolve(data);
             });
         });

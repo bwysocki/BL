@@ -1,3 +1,22 @@
+RabbitMQ
+	rabbitmq-plugins enable rabbitmq_management (optional)
+	service rabbitmq-server restart
+	rabbitmqctl add_user admin admin
+	rabbitmqctl add_vhost dev
+	rabbitmqctl set_permissions -p dev admin ".*" ".*" ".*"
+
+Mongo
+	mongod --dbpath mongodb/data/db
+	use bl
+	db.bl.insert({
+		_id: 412662,
+		fps: 20,
+        model : 0,
+        logoColor: "#7f7f7f",
+        threshold: 15,
+        thresholdChecked: false
+	});
+	
 BL-client:
 	npm install
 	bower install
@@ -12,12 +31,7 @@ BL-server
 	npm install
 	node server.js
 	http://localhost:3001/updateinfo
-
-RabbitMQ
-	rabbitmq-plugins enable rabbitmq_management (optional)
-	service rabbitmq-server restart
-	rabbitmqctl add_user admin admin
-	rabbitmqctl add_vhost dev
-	rabbitmqctl set_permissions -p dev admin ".*" ".*" ".*"
 	
+BL-soap
+	http://localhost:3002/ws/configuration.wsdl
 	
