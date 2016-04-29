@@ -4,19 +4,19 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "bl")
-public class Configuration {
-	
+public class ConfigurationModel {
+
 	@Id
 	private String id;
-	
+
 	private int model;
-    
+
 	private int fps;
-    
+
 	private String logoColor;
-    
+
 	private int threshold;
-    
+
 	private boolean thresholdChecked;
 
 	public String getId() {
@@ -72,5 +72,5 @@ public class Configuration {
 		return "Configuration [id=" + id + ", model=" + model + ", fps=" + fps + ", logoColor=" + logoColor
 				+ ", threshold=" + threshold + ", thresholdChecked=" + thresholdChecked + "]";
 	}
-	
+
 }

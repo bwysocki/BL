@@ -34,4 +34,5 @@ BL-server
 	
 BL-soap
 	http://localhost:3002/ws/configuration.wsdl
+	mvn spring-boot:run
 	
