@@ -26,7 +26,7 @@ BL-client:
 	webdriver-manager start
 	gulp
 	http://localhost:3000/index.html
-	
+
 BL-server
 	npm install
 	node server.js
