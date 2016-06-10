@@ -13,6 +13,12 @@ var ServerService = (function () {
     function ServerService() {
         this.socket = io(ServerService.URL);
     }
+    ServerService.prototype.setUpdateCalback = function (callback) {
+        this.socket.on(ServerService.UPDATE_COMMAND, function (data) {
+            console.log('GETTING UPDATE');
+            callback(data);
+        });
+    };
     ServerService.prototype.listen = function () {
         var _this = this;
         return new Promise(function (resolve, reject) {
@@ -22,6 +28,7 @@ var ServerService = (function () {
         });
     };
     ServerService.INIT_COMMAND = 'INIT';
+    ServerService.UPDATE_COMMAND = 'UPDATE';
     ServerService.URL = 'http://localhost:3001/updateinfo';
     ServerService = __decorate([
         core_1.Injectable(), 

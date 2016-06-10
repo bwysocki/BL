@@ -10,9 +10,10 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
-    "amqp": "^0.2.5",
     "config-node": "^1.2.2",
     "express": "^4.13.4",
-    "socket.io": "^1.4.5"
+    "simple-node-logger": "^0.93.12",
+    "socket.io": "^1.4.5",
+    "stomp-client": "^0.8.1"
   }
 }

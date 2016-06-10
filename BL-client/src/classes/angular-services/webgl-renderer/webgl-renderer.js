@@ -23,8 +23,8 @@ var WebglRenderer = (function () {
         this.addLight();
     }
     WebglRenderer.prototype.useConfiguration = function (configuration) {
-        this.currentModel = configuration.model;
         this.configuration = configuration;
+        this.currentModel = configuration.model;
     };
     WebglRenderer.prototype.add3dObjectsAndRender = function () {
         var _this = this;

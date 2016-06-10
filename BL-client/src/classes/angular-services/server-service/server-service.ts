@@ -5,11 +5,19 @@ import {VideoConfiguration} from '../../angular-components/bl/bl';
 export class ServerService {
 
     public static INIT_COMMAND: string = 'INIT';
+    public static UPDATE_COMMAND: string = 'UPDATE';
     public static URL: string = 'http://localhost:3001/updateinfo';
     public socket: Socket;
 
     constructor() {
         this.socket = io(ServerService.URL);
+    }
+
+    public setUpdateCalback(callback: (conf: VideoConfiguration) => void) {
+        this.socket.on(ServerService.UPDATE_COMMAND, (data: Message) => {
+            console.log('GETTING UPDATE');
+            callback(<VideoConfiguration>data);
+        });
     }
 
     public listen(): Promise<VideoConfiguration> {

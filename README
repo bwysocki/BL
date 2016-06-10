@@ -1,9 +1,5 @@
-RabbitMQ
-	rabbitmq-plugins enable rabbitmq_management (optional)
-	service rabbitmq-server restart
-	rabbitmqctl add_user admin admin
-	rabbitmqctl add_vhost dev
-	rabbitmqctl set_permissions -p dev admin ".*" ".*" ".*"
+ActiveMQ
+	http://localhost:8161/admin
 
 Mongo
 	mongod --dbpath mongodb/data/db

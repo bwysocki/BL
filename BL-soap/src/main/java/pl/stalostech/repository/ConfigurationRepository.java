@@ -12,8 +12,8 @@ import pl.stalostech.model.ConfigurationModel;
  *
  */
 public interface ConfigurationRepository extends MongoRepository<ConfigurationModel, String> {
-
+	
 	@Query("{'_id' : '412662'}")
 	ConfigurationModel findConfiguration();
-
+	
 }

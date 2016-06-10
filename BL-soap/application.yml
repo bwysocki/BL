@@ -1,2 +1,2 @@
-server:
-    port: 3002
+server.port: 3002
+spring.jms.jndi-name: java:/jms/ConnectionFactory

@@ -23,12 +23,17 @@ var BLComponent = (function () {
         this.fpsEmitter = new core_1.EventEmitter();
         this.thresholdEmitter = new core_1.EventEmitter();
         serverService.listen().then(function (serverConfiguration) {
-            _this.configuration = serverConfiguration;
-            _this.fpsEmitter.emit(_this.configuration.fps);
-            _this.thresholdEmitter.emit(_this.configuration.threshold);
+            var configurationUpdate = function (serverConfiguration) {
+                console.log('aaaaaaaaaaaaaaaa');
+                _this.configuration = serverConfiguration;
+                _this.fpsEmitter.emit(_this.configuration.fps);
+                _this.thresholdEmitter.emit(_this.configuration.threshold);
+                webglRenderer.useConfiguration(_this.configuration);
+            };
+            configurationUpdate(serverConfiguration);
             videoGrabber.play();
-            webglRenderer.useConfiguration(_this.configuration);
             webglRenderer.add3dObjectsAndRender();
+            serverService.setUpdateCalback(configurationUpdate);
         });
     }
     BLComponent.prototype.thresholdIsEnabled = function () {

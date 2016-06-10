@@ -45,16 +45,16 @@ public class WebServiceConfig extends WsConfigurerAdapter {
 
 	@Bean
 	public XsdSchema schema() {
-		return new SimpleXsdSchema(new ClassPathResource("schema.xsd"));
+		return new SimpleXsdSchema(new ClassPathResource("/xsd/schema.xsd"));
 	}
 
 	@Bean
 	public PayloadValidatingInterceptor validationInterceptor() {
 		final PayloadValidatingInterceptor payloadValidatingInterceptor = new PayloadValidatingInterceptor();
-		payloadValidatingInterceptor.setSchema(new ClassPathResource("schema.xsd"));
+		payloadValidatingInterceptor.setSchema(new ClassPathResource("/xsd/schema.xsd"));
 		payloadValidatingInterceptor.setValidateRequest(true);
-		payloadValidatingInterceptor.setValidateResponse(false);
-		payloadValidatingInterceptor.setFaultStringOrReason("Request doesn't meet xsd rules.");
+		payloadValidatingInterceptor.setValidateResponse(true);
+		payloadValidatingInterceptor.setFaultStringOrReason("Request or response doesn't meet xsd rules.");
 		return payloadValidatingInterceptor;
 	}
 

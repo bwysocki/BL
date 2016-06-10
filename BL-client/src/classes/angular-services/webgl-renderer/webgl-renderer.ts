@@ -30,8 +30,8 @@ export class WebglRenderer {
     }
 
     public useConfiguration(configuration: VideoConfiguration): void {
-        this.currentModel = configuration.model;
         this.configuration = configuration;
+        this.currentModel = configuration.model;
     }
 
     public add3dObjectsAndRender(): void {
