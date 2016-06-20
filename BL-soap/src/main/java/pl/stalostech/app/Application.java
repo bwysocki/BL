@@ -1,9 +1,5 @@
 package pl.stalostech.app;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
 import javax.jms.Queue;
 import javax.naming.NamingException;
 
@@ -14,7 +10,6 @@ import org.apache.activemq.network.jms.JndiLookupFactory;
 import org.apache.catalina.Context;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.util.descriptor.web.ContextResource;
-import org.dozer.DozerBeanMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainer;
@@ -30,14 +25,6 @@ public class Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-	}
-
-	@Bean(name = "dozer")
-	public DozerBeanMapper configDozer() throws IOException {
-		List<String> mappingFiles = Arrays.asList("dozer-mappings.xml");
-		DozerBeanMapper mapper = new DozerBeanMapper();
-		mapper.setMappingFiles(mappingFiles);
-		return mapper;
 	}
 
 	@Bean
@@ -86,9 +73,9 @@ public class Application {
 	public ActiveMQConnectionFactory jmsConnectionFactory() throws NamingException {
 		return new JndiLookupFactory().lookup("java:comp/env/jms/ConnectionFactory", ActiveMQConnectionFactory.class);
 	}
-	
+
 	@Bean
-	public Queue dataSource() throws NamingException {
+	public Queue blQueue() throws NamingException {
 		return new JndiLookupFactory().lookup("java:comp/env/jms/BLQueue", ActiveMQQueue.class);
 	}
 

@@ -9,8 +9,5 @@
   },
   "ambientDevDependencies": {
     "jasmine": "registry:dt/jasmine#2.2.0+20160317120654"
-  },
-  "dependencies": {
-    "moment": "registry:npm/moment#2.10.5+20160211003958"
   }
 }

@@ -5,4 +5,3 @@
 /// <reference path="browser/ambient/lodash/index.d.ts" />
 /// <reference path="browser/ambient/systemjs/index.d.ts" />
 /// <reference path="browser/ambient/three/index.d.ts" />
-/// <reference path="browser/definitions/moment/index.d.ts" />

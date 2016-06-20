@@ -1,10 +1,15 @@
 package pl.stalostech.model;
 
+import java.io.Serializable;
+import java.util.Objects;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "bl")
-public class ConfigurationModel {
+public class ConfigurationModel implements Serializable {
+
+	private static final long serialVersionUID = 593586976345900217L;
 
 	@Id
 	private String id;
@@ -71,6 +76,26 @@ public class ConfigurationModel {
 	public String toString() {
 		return "Configuration [id=" + id + ", model=" + model + ", fps=" + fps + ", logoColor=" + logoColor
 				+ ", threshold=" + threshold + ", thresholdChecked=" + thresholdChecked + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		final ConfigurationModel other = (ConfigurationModel) obj;
+		return Objects.equals(this.fps, other.fps) && Objects.equals(this.id, other.id)
+				&& Objects.equals(this.logoColor, other.logoColor) && Objects.equals(this.model, other.model)
+				&& Objects.equals(this.threshold, other.threshold)
+				&& Objects.equals(this.thresholdChecked, other.thresholdChecked);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.fps, this.id, this.logoColor, this.model, this.threshold, this.thresholdChecked);
 	}
 
 }

@@ -7,6 +7,30 @@
 	<artifactId>bl-soap</artifactId>
 	<version>1.0.0</version>
 
+	<repositories>
+		<repository>
+			<id>spring-snapshots</id>
+			<url>http://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-snapshots</id>
+			<url>http://repo.spring.io/snapshot</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<url>http://repo.spring.io/milestone</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -17,6 +41,7 @@
 		<java.version>1.8</java.version>
 		<net.sf.dozer.version>5.5.1</net.sf.dozer.version>
 		<org.apache.activemq.version>5.13.2</org.apache.activemq.version>
+		<org.mockito.version>1.9.5</org.mockito.version>
 	</properties>
 
 	<dependencies>
@@ -52,6 +77,12 @@
 			<artifactId>activemq-spring</artifactId>
 			<version>${org.apache.activemq.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${org.mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -84,16 +115,9 @@
 					<clearOutputDir>false</clearOutputDir>
 				</configuration>
 			</plugin>
-			<!-- <plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<jvmArguments>
-						-Xdebug
-						-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005
-					</jvmArguments>
-				</configuration>
-			</plugin> -->
+			<!-- <plugin> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-maven-plugin</artifactId> 
+				<configuration> <jvmArguments> -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005 
+				</jvmArguments> </configuration> </plugin> -->
 		</plugins>
 	</build>
 
