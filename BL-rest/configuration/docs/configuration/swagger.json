@@ -1,0 +1,85 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Resource to changing configuration of BL project.",
+    "version" : "1.0.0-SNAPSHOT",
+    "title" : "Configuration Resource"
+  },
+  "tags" : [ {
+    "name" : "configuration"
+  } ],
+  "schemes" : [ "http" ],
+  "paths" : {
+    "/configuration" : {
+      "get" : {
+        "tags" : [ "configuration" ],
+        "summary" : "Presents current configuration",
+        "description" : "",
+        "operationId" : "get",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation",
+            "schema" : {
+              "$ref" : "#/definitions/ConfigurationRepresentation"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "configuration" ],
+        "summary" : "Update configuration with new values",
+        "description" : "",
+        "operationId" : "put",
+        "consumes" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "description" : "Updated configuration object",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/ConfigurationRepresentation"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "successful operation"
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "ConfigurationRepresentation" : {
+      "type" : "object",
+      "required" : [ "model", "thresholdChecked" ],
+      "properties" : {
+        "color" : {
+          "type" : "string",
+          "pattern" : "#[\\dA-F]{6}([\\dA-F][\\dA-F])?"
+        },
+        "model" : {
+          "type" : "string",
+          "enum" : [ "CAR", "LOGO" ]
+        },
+        "fps" : {
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 5.0,
+          "maximum" : 45.0
+        },
+        "threshold" : {
+          "type" : "integer",
+          "format" : "int32",
+          "minimum" : 5.0,
+          "maximum" : 20.0
+        },
+        "thresholdChecked" : {
+          "type" : "boolean",
+          "default" : false
+        }
+      },
+      "description" : "Represents configuration."
+    }
+  }
+}
