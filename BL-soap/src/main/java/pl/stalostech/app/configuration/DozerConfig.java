@@ -1,6 +1,5 @@
 package pl.stalostech.app.configuration;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 public class DozerConfig {
 
 	@Bean(name = "dozer")
-	public DozerBeanMapper configDozer() throws IOException {
+	public DozerBeanMapper configDozer() {
 		List<String> mappingFiles = Arrays.asList("dozer-mappings.xml");
 		DozerBeanMapper mapper = new DozerBeanMapper();
 		mapper.setMappingFiles(mappingFiles);
