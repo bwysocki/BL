@@ -22,6 +22,7 @@ import org.mockito.MockitoAnnotations;
 
 import pl.stalostech.configuration.factory.TestObjectsFactory;
 import pl.stalostech.configuration.service.ConfigurationService;
+import pl.stalostech.configuration.service.SoapConfigurationWS;
 
 @RunWith(Arquillian.class)
 public class ConfigurationServiceExposureTest {
@@ -38,8 +39,9 @@ public class ConfigurationServiceExposureTest {
 
 	@Deployment
 	public static JavaArchive createDeployment() {
-		return ShrinkWrap.create(JavaArchive.class)
-				.addClasses(TestObjectsFactory.class, ConfigurationServiceExposure.class)
+		return ShrinkWrap
+				.create(JavaArchive.class).addClasses(TestObjectsFactory.class, ConfigurationServiceExposure.class,
+						ConfigurationService.class, SoapConfigurationWS.class)
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -50,7 +52,7 @@ public class ConfigurationServiceExposureTest {
 
 	@Test
 	public void testGet() {
-		when(configurationService.getConfigurationBySoap())
+		when(configurationService.getConfiguration())
 				.thenReturn(testObjectsFactory.getSampleConfigurationRepresentation());
 
 		assertNotNull(exposure.get());

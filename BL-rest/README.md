@@ -1,5 +1,5 @@
 To run in Wildfly:
 
-    mvn -N -Pwildfly cargo:run
+    mvn -Pwildfly cargo:run
 
 

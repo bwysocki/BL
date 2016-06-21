@@ -31,6 +31,7 @@
 		<arquillian-junit-container.version>1.1.11.Final</arquillian-junit-container.version>
 		<weld-core-bom.version>2.3.3.Final</weld-core-bom.version>
 		<arquillian-weld-se-embedded-1.1.version>1.0.0.CR9</arquillian-weld-se-embedded-1.1.version>
+		<net.sf.dozer.version>5.5.1</net.sf.dozer.version>
 	</properties>
 
 	<dependencyManagement>
@@ -94,6 +95,11 @@
 				<groupId>io.swagger</groupId>
 				<artifactId>swagger-annotations</artifactId>
 				<version>${io.swagger.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.sf.dozer</groupId>
+				<artifactId>dozer</artifactId>
+				<version>${net.sf.dozer.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.jboss.weld</groupId>

@@ -29,6 +29,10 @@
 			<artifactId>swagger-annotations</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
@@ -120,6 +124,26 @@
 						<goals>
 							<goal>generate</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>2.4.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlUrls>
+								<wsdlUrl>
+									http://localhost:3002/ws/configuration.wsdl
+								</wsdlUrl>
+							</wsdlUrls>
+							<packageName>pl.stalostech.jaxws.configuration</packageName>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

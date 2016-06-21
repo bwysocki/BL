@@ -1,8 +1,8 @@
 package pl.stalostech.configuration.exposure.rs;
 
 import javax.annotation.security.PermitAll;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -30,14 +30,14 @@ import pl.stalostech.configuration.service.ConfigurationService;
 @PermitAll
 public class ConfigurationServiceExposure {
 
-	@EJB
+	@Inject
 	private ConfigurationService configurationService;
 
 	@GET
 	@Produces({ "application/json" })
 	@ApiOperation("Presents current configuration")
 	public ConfigurationRepresentation get() {
-		return configurationService.getConfigurationBySoap();
+		return configurationService.getConfiguration();
 	}
 
 	@PUT
