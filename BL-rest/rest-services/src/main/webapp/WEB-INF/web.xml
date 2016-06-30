@@ -13,5 +13,5 @@
         <servlet-name>ping</servlet-name>
         <url-pattern>/ping</url-pattern>
     </servlet-mapping>
-
+	
 </web-app>

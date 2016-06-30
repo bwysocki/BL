@@ -22,6 +22,7 @@ import org.mockito.MockitoAnnotations;
 
 import pl.stalostech.configuration.factory.TestObjectsFactory;
 import pl.stalostech.configuration.service.ConfigurationService;
+import pl.stalostech.configuration.service.DozerMapper;
 import pl.stalostech.configuration.service.SoapConfigurationWS;
 
 @RunWith(Arquillian.class)
@@ -41,7 +42,7 @@ public class ConfigurationServiceExposureTest {
 	public static JavaArchive createDeployment() {
 		return ShrinkWrap
 				.create(JavaArchive.class).addClasses(TestObjectsFactory.class, ConfigurationServiceExposure.class,
-						ConfigurationService.class, SoapConfigurationWS.class)
+						ConfigurationService.class, SoapConfigurationWS.class, DozerMapper.class)
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 

@@ -11,6 +11,7 @@ import pl.stalostech.configuration.exposure.rs.ConfigurationServiceExposure;
 import pl.stalostech.exceptionmapping.ConstraintViolationExceptionMapper;
 import pl.stalostech.exceptionmapping.EJBAccessExceptionMapper;
 import pl.stalostech.exceptionmapping.ResteasyViolationExceptionMapper;
+import pl.stalostech.exceptionmapping.external.SoapConfigurationWSCommandExceptionMapper;
 
 /**
  * Assembling the rest-services application by including the relevant resource.
@@ -27,14 +28,14 @@ public class ServicesApplication extends Application {
 
 		return classes;
 	}
-
+	
 	private void registerRestExposure(Set<Class<?>> classes) {
 		classes.addAll(Arrays.asList(ConfigurationServiceExposure.class));
 	}
 
 	private void registerExceptionMappers(Set<Class<?>> classes) {
 		classes.addAll(Arrays.asList(EJBAccessExceptionMapper.class, ConstraintViolationExceptionMapper.class,
-				ResteasyViolationExceptionMapper.class));
+				ResteasyViolationExceptionMapper.class, SoapConfigurationWSCommandExceptionMapper.class));
 	}
 
 }
