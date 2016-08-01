@@ -29,6 +29,9 @@ var WebglRenderer = (function () {
     WebglRenderer.prototype.useConfiguration = function (configuration) {
         this.configuration = configuration;
         this.currentModel = configuration.model;
+        _.forEach(this.objects3d, function (val) {
+            val.visible = false;
+        });
     };
     WebglRenderer.prototype.add3dObjectsAndRender = function () {
         var _this = this;

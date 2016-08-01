@@ -30,7 +30,6 @@ var BLComponent = (function () {
         this.thresholdEmitter = new core_1.EventEmitter();
         serverService.listen().then(function (serverConfiguration) {
             var configurationUpdate = function (serverConfiguration) {
-                console.log('aaaaaaaaaaaaaaaa');
                 _this.configuration = serverConfiguration;
                 _this.fpsEmitter.emit(_this.configuration.fps);
                 _this.thresholdEmitter.emit(_this.configuration.threshold);

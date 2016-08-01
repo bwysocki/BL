@@ -32,6 +32,9 @@ export class WebglRenderer {
     public useConfiguration(configuration: VideoConfiguration): void {
         this.configuration = configuration;
         this.currentModel = configuration.model;
+        _.forEach(this.objects3d, (val: any) => {
+            val.visible = false
+        });
     }
 
     public add3dObjectsAndRender(): void {

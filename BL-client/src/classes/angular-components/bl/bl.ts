@@ -38,18 +38,17 @@ export class BLComponent {
         serverService.listen().then((serverConfiguration: VideoConfiguration) => {
 
             let configurationUpdate = (serverConfiguration: VideoConfiguration) => {
-                console.log('aaaaaaaaaaaaaaaa');
                 this.configuration = serverConfiguration;
                 this.fpsEmitter.emit(this.configuration.fps);
                 this.thresholdEmitter.emit(this.configuration.threshold);
                 webglRenderer.useConfiguration(this.configuration);
-            }
+            };
 
             configurationUpdate(serverConfiguration);
             videoGrabber.play();
 
             webglRenderer.add3dObjectsAndRender();
-            
+
             serverService.setUpdateCalback(configurationUpdate);
         });
 
