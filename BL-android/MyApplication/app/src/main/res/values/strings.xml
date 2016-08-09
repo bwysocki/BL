@@ -5,10 +5,13 @@
     </string-array>
     <string name="app_name">BL</string>
     <string name="bl_configuration">BL configuration</string>
-    <string name="about">About</string>
+    <string name="about">Set HOST IP</string>
     <string name="about_title">About BL</string>
     <string name="model">Model</string>
-    <string name="fps">FPS</string>
-    <string name="threshold_enabled">Threshold enabled</string>
+    <string name="fps">FPS:</string>
+    <string name="threshold_enabled">Use threshold:</string>
     <string name="your_configuration_has_bee_updated">Your configuration has bee updated</string>
+    <string name="changeColor">change</string>
+    <string name="modelLabel">Model:</string>
+    <string name="threshold">Threshold:</string>
 </resources>

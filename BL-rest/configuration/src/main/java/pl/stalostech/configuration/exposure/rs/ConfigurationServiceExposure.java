@@ -46,6 +46,7 @@ public class ConfigurationServiceExposure {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "successful operation") })
 	public Response put(
 			@ApiParam(value = "Updated configuration object", required = true) @Valid ConfigurationRepresentation configuration) {
+		configurationService.updateConfiguration(configuration);
 		return Response.status(Status.OK).build();
 	}
 

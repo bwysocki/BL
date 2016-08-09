@@ -2,6 +2,9 @@ package pl.stalostech.configuration.exposure.rs;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import javax.inject.Inject;
@@ -20,7 +23,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import pl.stalostech.configuration.exposure.rs.hystrix.SoapConfigurationWSCommandException;
 import pl.stalostech.configuration.factory.TestObjectsFactory;
+import pl.stalostech.configuration.model.ConfigurationRepresentation;
 import pl.stalostech.configuration.service.ConfigurationService;
 import pl.stalostech.configuration.service.DozerMapper;
 import pl.stalostech.configuration.service.SoapConfigurationWS;
@@ -40,9 +45,9 @@ public class ConfigurationServiceExposureTest {
 
 	@Deployment
 	public static JavaArchive createDeployment() {
-		return ShrinkWrap
-				.create(JavaArchive.class).addClasses(TestObjectsFactory.class, ConfigurationServiceExposure.class,
-						ConfigurationService.class, SoapConfigurationWS.class, DozerMapper.class)
+		return ShrinkWrap.create(JavaArchive.class)
+				.addClasses(TestObjectsFactory.class, ConfigurationServiceExposure.class, ConfigurationService.class,
+						SoapConfigurationWS.class, DozerMapper.class)
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
@@ -60,10 +65,20 @@ public class ConfigurationServiceExposureTest {
 	}
 
 	@Test
-	public void testPut() {
+	public void testSuccessfulPut() {
+		doNothing().when(configurationService).updateConfiguration(any(ConfigurationRepresentation.class));
+
 		Response r = exposure.put(testObjectsFactory.getSampleConfigurationRepresentation());
 		assertNotNull(r);
 		assertEquals(Status.OK, r.getStatusInfo());
+	}
+
+	@Test(expected = SoapConfigurationWSCommandException.class)
+	public void testUnSuccessfulPut() {
+		doThrow(SoapConfigurationWSCommandException.class).when(configurationService)
+				.updateConfiguration(any(ConfigurationRepresentation.class));
+
+		exposure.put(testObjectsFactory.getSampleConfigurationRepresentation());
 	}
 
 }
