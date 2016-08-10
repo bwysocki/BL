@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiModel;
 @ApiModel(value="ConfigurationRepresentation", description="Represents configuration.")
 public class ConfigurationRepresentation {
 
+	@NotNull
 	@Pattern(regexp = "#[\\dA-F]{6}([\\dA-F][\\dA-F])?")
 	private String color;
 
@@ -20,10 +21,12 @@ public class ConfigurationRepresentation {
 
 	@Min(5)
 	@Max(45)
+	@NotNull
 	private Integer fps;
 
 	@Min(5)
 	@Max(20)
+	@NotNull
 	private Integer threshold;
 
 	@NotNull

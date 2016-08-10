@@ -23,7 +23,7 @@ server.listen(3001);
 console.log("Server is running on port 3001...");
 
 //stomp listener
-const client = new Stomp(config.stomp.host, config.stomp.port);	
+const client = new Stomp(config.stomp.host, config.stomp.port);
 client.connect((sessionId) => {
 	client.subscribe(config.stomp.queueName, function(body, headers) {
 		console.log("body", body, headers)
@@ -40,19 +40,18 @@ io.of('/updateinfo').on('connection', function(socket) {
         threshold: 15,
         thresholdChecked: false
 	});
-	
+
 	let queueMsgCallback = (msg) => {
 		log.info('Sending UPDATE msg');
 		let configuration = JSON.parse(msg);
 		configuration.model = configuration.model === 'CAR' ? 0 : 1;
 		socket.emit('UPDATE', configuration);
 	}
-	
+
 	queueEmitter.on('queueMsg', queueMsgCallback);
-	
+
 	socket.on('disconnect', function() {
 		log.info('Connection: ' + socket.id + ' disconnected.');
 		queueEmitter.removeListener('queueMsg', queueMsgCallback);
     });
 });
-

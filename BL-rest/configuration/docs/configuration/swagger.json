@@ -52,7 +52,7 @@
   "definitions" : {
     "ConfigurationRepresentation" : {
       "type" : "object",
-      "required" : [ "model", "thresholdChecked" ],
+      "required" : [ "color", "fps", "model", "threshold", "thresholdChecked" ],
       "properties" : {
         "color" : {
           "type" : "string",

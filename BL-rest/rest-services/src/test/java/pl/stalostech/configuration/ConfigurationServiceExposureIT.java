@@ -60,7 +60,7 @@ public class ConfigurationServiceExposureIT {
 
 	private ConfigurationRepresentation getSampleConfigurationRepresentation() {
 		ConfigurationRepresentation r = new ConfigurationRepresentation();
-		r.setColor("#AABBCC");
+		r.setColor("#1100FF");
 		r.setFps(35);
 		r.setModel(ConfigurationModel.CAR);
 		r.setThreshold(20);
