@@ -15,7 +15,6 @@ export class ServerService {
 
     public setUpdateCalback(callback: (conf: VideoConfiguration) => void) {
         this.socket.on(ServerService.UPDATE_COMMAND, (data: Message) => {
-            console.log('GETTING UPDATE');
             callback(<VideoConfiguration>data);
         });
     }

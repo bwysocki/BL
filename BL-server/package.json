@@ -10,6 +10,7 @@
   "license": "ISC",
   "devDependencies": {},
   "dependencies": {
+    "mongoose": "^4.5.8",
     "config-node": "^1.2.2",
     "express": "^4.13.4",
     "simple-node-logger": "^0.93.12",

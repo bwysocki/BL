@@ -3,7 +3,7 @@
         <item>Car</item>
         <item>Logo</item>
     </string-array>
-    <string name="app_name">BL</string>
+    <string name="app_name">BL configuration</string>
     <string name="bl_configuration">BL configuration</string>
     <string name="about">Set HOST IP</string>
     <string name="about_title">About BL</string>

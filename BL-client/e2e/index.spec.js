@@ -20,15 +20,30 @@ describe('Main page of augmented reality', function() {
     });
     
     it('after clicking on logo the color is displayed.', function () {
-    	expect(element(by.xpath('//html/body/div/div[2]/bl/div[2]/input')).isDisplayed()).toBe(false);
-    	element(by.xpath('//html/body/div/div[2]/bl/div[1]/div[2]/label')).click();
-    	expect(element(by.xpath('//html/body/div/div[2]/bl/div[2]/input')).isDisplayed()).toBe(true);
+    	element(by.xpath('//html/body/div/div[2]/bl/div[1]/div[2]/label')).isSelected().then((result) => {
+    		if (result) {
+    			expect(element(by.xpath('//html/body/div/div[2]/bl/div[2]/input')).isDisplayed()).toBe(false);
+    	    	element(by.xpath('//html/body/div/div[2]/bl/div[1]/div[2]/label')).click();
+    	    	expect(element(by.xpath('//html/body/div/div[2]/bl/div[2]/input')).isDisplayed()).toBe(true);
+    		} else {
+    	    	expect(element(by.xpath('//html/body/div/div[2]/bl/div[2]/input')).isDisplayed()).toBe(true);
+    		}
+    	});
+    	
     });
     
     it('after threshold checkbox the threshold progress is displayed.', function () {
-    	expect(element(by.xpath('//html/body/div/div[2]/bl/div[4]/bl-progress/div')).isDisplayed()).toBe(false);
-    	element(by.xpath('//html/body/div/div[2]/bl/div[3]/div/label/input')).click();
-    	expect(element(by.xpath('//html/body/div/div[2]/bl/div[4]/bl-progress/div')).isDisplayed()).toBe(true);
+    	element(by.xpath('//html/body/div/div[2]/bl/div[3]/div/label/input')).isSelected().then((result) => {
+    		if (result) {
+    			expect(element(by.xpath('//html/body/div/div[2]/bl/div[4]/bl-progress/div')).isDisplayed()).toBe(true);
+    	    	element(by.xpath('//html/body/div/div[2]/bl/div[3]/div/label/input')).click();
+    	    	expect(element(by.xpath('//html/body/div/div[2]/bl/div[4]/bl-progress/div')).isDisplayed()).toBe(false);
+    		} else {
+    			expect(element(by.xpath('//html/body/div/div[2]/bl/div[4]/bl-progress/div')).isDisplayed()).toBe(false);
+    	    	element(by.xpath('//html/body/div/div[2]/bl/div[3]/div/label/input')).click();
+    	    	expect(element(by.xpath('//html/body/div/div[2]/bl/div[4]/bl-progress/div')).isDisplayed()).toBe(true);
+    		}
+    	});
     });
     
 });

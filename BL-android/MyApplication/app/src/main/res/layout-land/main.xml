@@ -36,6 +36,24 @@
             android:id="@+id/changeColor"
             android:onClick="goToChangeColorActivity" />
 
+        <TextView
+            style="@style/LeftColumn"
+            android:text="@string/modelLabel"
+            android:id="@+id/modelLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp" />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/model"
+            android:layout_weight="1"
+            android:paddingLeft="0dp"
+            android:hint="@string/model"
+            android:entries="@array/model_list"
+            />
+
     </LinearLayout>
 
     <LinearLayout
@@ -75,21 +93,6 @@
         android:layout_width="match_parent"
         android:layout_weight="1"
         android:layout_height="wrap_content">
-
-        <TextView
-            style="@style/LeftColumn"
-            android:text="@string/modelLabel"
-            android:id="@+id/modelLabel" />
-
-        <Spinner
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/model"
-            android:layout_weight="1"
-            android:paddingLeft="0dp"
-            android:hint="@string/model"
-            android:entries="@array/model_list"
-            />
 
     </LinearLayout>
 

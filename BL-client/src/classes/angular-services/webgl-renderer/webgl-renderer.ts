@@ -33,7 +33,7 @@ export class WebglRenderer {
         this.configuration = configuration;
         this.currentModel = configuration.model;
         _.forEach(this.objects3d, (val: any) => {
-            val.visible = false
+            val.visible = false;
         });
     }
 

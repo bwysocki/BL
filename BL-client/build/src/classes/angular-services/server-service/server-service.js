@@ -15,7 +15,6 @@ var ServerService = (function () {
     }
     ServerService.prototype.setUpdateCalback = function (callback) {
         this.socket.on(ServerService.UPDATE_COMMAND, function (data) {
-            console.log('GETTING UPDATE');
             callback(data);
         });
     };

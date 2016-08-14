@@ -37,8 +37,8 @@ export class BLComponent {
 
         serverService.listen().then((serverConfiguration: VideoConfiguration) => {
 
-            let configurationUpdate = (serverConfiguration: VideoConfiguration) => {
-                this.configuration = serverConfiguration;
+            let configurationUpdate = (vidoeConf: VideoConfiguration) => {
+                this.configuration = vidoeConf;
                 this.fpsEmitter.emit(this.configuration.fps);
                 this.thresholdEmitter.emit(this.configuration.threshold);
                 webglRenderer.useConfiguration(this.configuration);

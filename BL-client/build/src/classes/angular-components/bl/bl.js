@@ -29,8 +29,8 @@ var BLComponent = (function () {
         this.fpsEmitter = new core_1.EventEmitter();
         this.thresholdEmitter = new core_1.EventEmitter();
         serverService.listen().then(function (serverConfiguration) {
-            var configurationUpdate = function (serverConfiguration) {
-                _this.configuration = serverConfiguration;
+            var configurationUpdate = function (vidoeConf) {
+                _this.configuration = vidoeConf;
                 _this.fpsEmitter.emit(_this.configuration.fps);
                 _this.thresholdEmitter.emit(_this.configuration.threshold);
                 webglRenderer.useConfiguration(_this.configuration);
